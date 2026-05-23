@@ -698,6 +698,8 @@ h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
   .hero-actions { justify-content: center; }
   .hero-image-wrap { order: -1; }
   .hero-image-card img { max-width: 280px; }
+  .hero-scroll { display: none; }
+  .hero { padding-bottom: 60px; }
 
   .steps { flex-direction: column; }
   .step-arrow { transform: rotate(90deg); padding: 4px 0; }
