@@ -152,6 +152,17 @@ function showSuccess() {
   if (contactDog) contactDog.src = 'img/bvinke.png';
 }
 
+/* ── Forhåndsvelg i kontaktskjema ved klikk på produkt-knapper ── */
+document.querySelectorAll('[data-preselect]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const select = document.getElementById('type');
+    if (select) {
+      select.value = btn.dataset.preselect;
+      updateDogMood();
+    }
+  });
+});
+
 /* ── Jevn scroll for ankre (fallback for eldre nettlesere) ── */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', e => {
