@@ -4,28 +4,42 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ukeplan – digital timeplan for naturbruksskoler</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --groen: #6B8C2A;
-    --groen-mork: #3d4a1e;
-    --groen-lys: #e8f0d4;
-    --groen-lys2: #f4f8ec;
-    --hvit: #ffffff;
-    --tekst: #1a1a1a;
-    --dempet: #5a5a5a;
-    --kant: #d8e4bc;
-    --bg: #f9faf4;
-    --radius: 14px;
-    --shadow: 0 4px 20px rgba(61,74,30,.10);
-    --shadow-sm: 0 2px 8px rgba(61,74,30,.08);
+    /* Dark amber theme – matching uno.ganddal.net */
+    --bg: #111111;
+    --bg-alt: #181818;
+    --bg-card: #272727;
+    --text: #FAF7F2;
+    --text-muted: #888888;
+    --accent: #D4820A;
+    --accent-lt: #F5A623;
+    --accent-glow: rgba(212,130,10,0.14);
+    --border: rgba(255,255,255,0.08);
+    --radius: 18px;
+    --radius-sm: 10px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.45);
+    --shadow-sm: 0 2px 10px rgba(0,0,0,0.3);
+    /* Legacy aliases – used by inline styles in the markup */
+    --groen: var(--accent);
+    --groen-mork: #1c1c1c;
+    --groen-lys: rgba(212,130,10,0.13);
+    --groen-lys2: var(--bg-alt);
+    --hvit: var(--bg);
+    --tekst: var(--text);
+    --dempet: var(--text-muted);
+    --kant: var(--border);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--hvit);
-    color: var(--tekst);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
     line-height: 1.6;
   }
 
@@ -33,18 +47,21 @@
   nav {
     position: sticky;
     top: 0;
-    background: var(--groen-mork);
+    background: rgba(17,17,17,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: .9rem 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     z-index: 100;
-    box-shadow: 0 2px 12px rgba(0,0,0,.18);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
   }
   .nav-logo {
-    color: #fff;
-    font-size: 1.1rem;
-    font-weight: 700;
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 600;
     letter-spacing: -.01em;
     display: flex;
     align-items: center;
@@ -52,7 +69,7 @@
   }
   .nav-logo span { opacity: .55; font-weight: 400; }
   nav a.nav-cta {
-    background: var(--groen);
+    background: var(--accent);
     color: #fff;
     padding: .45rem 1.1rem;
     border-radius: 20px;
@@ -61,12 +78,12 @@
     text-decoration: none;
     transition: background .15s;
   }
-  nav a.nav-cta:hover { background: #7fa332; }
+  nav a.nav-cta:hover { background: var(--accent-lt); }
 
   /* ── HERO ── */
   .hero {
-    background: linear-gradient(155deg, var(--groen-mork) 0%, #526125 60%, var(--groen) 100%);
-    color: #fff;
+    background: linear-gradient(155deg, #150f00 0%, #221800 55%, #1a1200 100%);
+    color: var(--text);
     padding: 5rem 2rem 4.5rem;
     text-align: center;
     position: relative;
@@ -76,13 +93,13 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 70% 50%, rgba(255,255,255,.06) 0%, transparent 70%);
+    background: radial-gradient(ellipse at 60% 40%, rgba(212,130,10,0.2) 0%, transparent 65%);
   }
   .hero-badge {
     display: inline-block;
-    background: rgba(255,255,255,.15);
-    border: 1px solid rgba(255,255,255,.25);
-    color: rgba(255,255,255,.9);
+    background: rgba(212,130,10,0.18);
+    border: 1px solid rgba(212,130,10,0.38);
+    color: var(--accent-lt);
     font-size: .72rem;
     font-weight: 600;
     letter-spacing: .08em;
@@ -92,6 +109,7 @@
     margin-bottom: 1.4rem;
   }
   .hero h1 {
+    font-family: 'Syne', sans-serif;
     font-size: clamp(2rem, 5vw, 3.2rem);
     font-weight: 800;
     letter-spacing: -.03em;
@@ -100,11 +118,11 @@
   }
   .hero h1 em {
     font-style: normal;
-    color: #c8e07a;
+    color: var(--accent-lt);
   }
   .hero-sub {
     font-size: clamp(.95rem, 2vw, 1.15rem);
-    color: rgba(255,255,255,.78);
+    color: rgba(250,247,242,0.72);
     max-width: 600px;
     margin: 0 auto 2.4rem;
   }
@@ -115,54 +133,53 @@
     flex-wrap: wrap;
   }
   .btn-prim {
-    background: #c8e07a;
-    color: var(--groen-mork);
+    background: var(--accent);
+    color: #fff;
     font-weight: 700;
     font-size: .95rem;
     padding: .75rem 1.8rem;
     border-radius: 24px;
     text-decoration: none;
     transition: background .15s, transform .1s;
-    box-shadow: 0 4px 14px rgba(0,0,0,.18);
+    box-shadow: 0 4px 18px rgba(212,130,10,0.35);
   }
-  .btn-prim:hover { background: #d8ed96; transform: translateY(-1px); }
+  .btn-prim:hover { background: var(--accent-lt); transform: translateY(-1px); }
   .btn-sek {
-    background: rgba(255,255,255,.12);
-    color: #fff;
+    background: rgba(255,255,255,.08);
+    color: var(--text);
     font-weight: 600;
     font-size: .95rem;
     padding: .75rem 1.8rem;
     border-radius: 24px;
     text-decoration: none;
-    border: 1.5px solid rgba(255,255,255,.3);
+    border: 1.5px solid rgba(255,255,255,.15);
     transition: background .15s;
   }
-  .btn-sek:hover { background: rgba(255,255,255,.2); }
+  .btn-sek:hover { background: rgba(255,255,255,.14); }
 
   /* ── STATS-STRIP ── */
   .stats {
-    background: var(--groen-lys);
-    border-top: 1.5px solid var(--kant);
-    border-bottom: 1.5px solid var(--kant);
+    background: var(--bg-alt);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
     padding: 1.6rem 2rem;
     display: flex;
     justify-content: center;
     gap: 3rem;
     flex-wrap: wrap;
   }
-  .stat {
-    text-align: center;
-  }
+  .stat { text-align: center; }
   .stat strong {
     display: block;
+    font-family: 'Syne', sans-serif;
     font-size: 1.7rem;
     font-weight: 800;
-    color: var(--groen-mork);
+    color: var(--accent-lt);
     letter-spacing: -.02em;
   }
   .stat span {
     font-size: .78rem;
-    color: var(--dempet);
+    color: var(--text-muted);
     font-weight: 500;
   }
 
@@ -173,14 +190,15 @@
     margin-bottom: 3rem;
   }
   .seksjon-tittel h2 {
+    font-family: 'Syne', sans-serif;
     font-size: clamp(1.4rem, 3vw, 2rem);
     font-weight: 800;
-    color: var(--groen-mork);
+    color: var(--text);
     letter-spacing: -.02em;
     margin-bottom: .5rem;
   }
   .seksjon-tittel p {
-    color: var(--dempet);
+    color: var(--text-muted);
     font-size: .97rem;
     max-width: 560px;
     margin: 0 auto;
@@ -194,14 +212,14 @@
     gap: 1.3rem;
   }
   .feature-kort {
-    background: var(--bg);
-    border: 1.5px solid var(--kant);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 1.6rem 1.5rem;
     transition: box-shadow .15s, transform .15s;
   }
   .feature-kort:hover {
-    box-shadow: var(--shadow);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
     transform: translateY(-2px);
   }
   .feature-ikon {
@@ -210,14 +228,15 @@
     display: block;
   }
   .feature-kort h3 {
+    font-family: 'Syne', sans-serif;
     font-size: .97rem;
     font-weight: 700;
-    color: var(--groen-mork);
+    color: var(--text);
     margin-bottom: .4rem;
   }
   .feature-kort p {
     font-size: .84rem;
-    color: var(--dempet);
+    color: var(--text-muted);
     line-height: 1.55;
   }
 
@@ -231,22 +250,23 @@
   .split.rev { flex-direction: row-reverse; }
   .split-tekst { flex: 1; min-width: 260px; }
   .split-tekst h2 {
+    font-family: 'Syne', sans-serif;
     font-size: clamp(1.3rem, 2.5vw, 1.7rem);
     font-weight: 800;
-    color: var(--groen-mork);
+    color: var(--text);
     letter-spacing: -.02em;
     margin-bottom: .8rem;
   }
   .split-tekst p {
-    color: var(--dempet);
+    color: var(--text-muted);
     font-size: .93rem;
     margin-bottom: .6rem;
   }
   .split-visuell {
     flex: 1;
     min-width: 260px;
-    background: var(--groen-lys2);
-    border: 1.5px solid var(--kant);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 2rem 1.5rem;
   }
@@ -261,25 +281,25 @@
     padding-left: 1.6rem;
     position: relative;
     font-size: .9rem;
-    color: var(--dempet);
+    color: var(--text-muted);
   }
   .sjekkliste li::before {
     content: '✓';
     position: absolute;
     left: 0;
-    color: var(--groen);
+    color: var(--accent);
     font-weight: 700;
   }
 
   /* ── SKJERMBILDE-MOCK ── */
   .mock-vindu {
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     overflow: hidden;
     box-shadow: var(--shadow);
-    border: 1.5px solid var(--kant);
+    border: 1px solid var(--border);
   }
   .mock-topplist {
-    background: var(--groen-mork);
+    background: #1c1c1c;
     padding: .6rem 1rem;
     display: flex;
     gap: .4rem;
@@ -288,16 +308,16 @@
   .mock-dot {
     width: 10px; height: 10px;
     border-radius: 50%;
-    background: rgba(255,255,255,.25);
+    background: rgba(255,255,255,.2);
   }
   .mock-tittel {
-    color: rgba(255,255,255,.75);
+    color: rgba(250,247,242,.65);
     font-size: .7rem;
     margin-left: .4rem;
     font-weight: 600;
   }
   .mock-innhold {
-    background: var(--bg);
+    background: #1e1e1e;
     padding: 1rem;
   }
   .mock-rad {
@@ -306,24 +326,24 @@
     margin-bottom: .5rem;
   }
   .mock-celle {
-    background: #fff;
-    border: 1px solid var(--kant);
+    background: #2a2a2a;
+    border: 1px solid var(--border);
     border-radius: 6px;
     padding: .35rem .6rem;
     font-size: .7rem;
     flex: 1;
-    color: var(--tekst);
+    color: var(--text);
   }
   .mock-celle.header {
-    background: var(--groen-lys);
+    background: rgba(212,130,10,0.18);
     font-weight: 700;
-    color: var(--groen-mork);
+    color: var(--accent-lt);
     font-size: .65rem;
   }
   .mock-celle.aktiv {
-    border-color: var(--groen);
-    background: var(--groen-lys);
-    color: var(--groen-mork);
+    border-color: var(--accent);
+    background: rgba(212,130,10,0.18);
+    color: var(--accent-lt);
     font-weight: 600;
   }
 
@@ -335,18 +355,18 @@
     flex-wrap: wrap;
   }
   .fane-chip {
-    background: #fff;
-    border: 1.5px solid var(--kant);
+    background: #2a2a2a;
+    border: 1px solid var(--border);
     border-radius: 20px;
     padding: .28rem .7rem;
     font-size: .72rem;
     font-weight: 600;
-    color: var(--dempet);
+    color: var(--text-muted);
   }
   .fane-chip.aktiv {
-    background: var(--groen);
+    background: var(--accent);
     color: #fff;
-    border-color: var(--groen);
+    border-color: var(--accent);
   }
 
   /* ── TRINN-FOR-TRINN ── */
@@ -358,12 +378,16 @@
   .steg {
     text-align: center;
     padding: 1.5rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
   }
   .steg-nr {
     width: 44px; height: 44px;
-    background: var(--groen);
+    background: var(--accent);
     color: #fff;
     border-radius: 50%;
+    font-family: 'Syne', sans-serif;
     font-size: 1.1rem;
     font-weight: 800;
     display: flex;
@@ -372,66 +396,74 @@
     margin: 0 auto .9rem;
   }
   .steg h3 {
+    font-family: 'Syne', sans-serif;
     font-size: .95rem;
     font-weight: 700;
-    color: var(--groen-mork);
+    color: var(--text);
     margin-bottom: .4rem;
   }
   .steg p {
     font-size: .82rem;
-    color: var(--dempet);
+    color: var(--text-muted);
   }
 
   /* ── BAKGRUNNS-SEKSJONER ── */
-  .bg-lys { background: var(--groen-lys2); border-top: 1.5px solid var(--kant); border-bottom: 1.5px solid var(--kant); }
-  .bg-mork { background: var(--groen-mork); color: #fff; }
-  .bg-mork .seksjon-tittel h2 { color: #fff; }
-  .bg-mork .seksjon-tittel p { color: rgba(255,255,255,.65); }
+  .bg-lys {
+    background: var(--bg-alt);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .bg-mork { background: #0f0f0f; color: var(--text); }
+  .bg-mork .seksjon-tittel h2 { color: var(--text); }
+  .bg-mork .seksjon-tittel p { color: var(--text-muted); }
 
   /* ── KONTAKT / CTA ── */
   .cta-boks {
-    background: linear-gradient(135deg, var(--groen-mork), #526125);
+    background: linear-gradient(135deg, #1a1200, #2b1d00);
+    border: 1px solid rgba(212,130,10,0.25);
     border-radius: 20px;
     padding: 3.5rem 2rem;
     text-align: center;
-    color: #fff;
+    color: var(--text);
     max-width: 680px;
     margin: 0 auto;
-    box-shadow: var(--shadow);
+    box-shadow: 0 8px 40px rgba(212,130,10,0.12);
   }
   .cta-boks h2 {
+    font-family: 'Syne', sans-serif;
     font-size: clamp(1.4rem, 3vw, 2rem);
     font-weight: 800;
     margin-bottom: .7rem;
     letter-spacing: -.02em;
   }
   .cta-boks p {
-    color: rgba(255,255,255,.75);
+    color: var(--text-muted);
     font-size: .95rem;
     margin-bottom: 2rem;
   }
   .cta-epost {
     display: inline-block;
-    background: rgba(255,255,255,.12);
-    border: 1.5px solid rgba(255,255,255,.3);
+    background: var(--accent);
+    border: 1.5px solid var(--accent);
     color: #fff;
-    padding: .7rem 1.5rem;
+    padding: .7rem 1.8rem;
     border-radius: 24px;
     font-size: .92rem;
     font-weight: 600;
     text-decoration: none;
     transition: background .15s;
+    box-shadow: 0 4px 18px rgba(212,130,10,0.3);
   }
-  .cta-epost:hover { background: rgba(255,255,255,.2); }
+  .cta-epost:hover { background: var(--accent-lt); border-color: var(--accent-lt); }
 
   /* ── FOOTER ── */
   footer {
-    background: var(--groen-mork);
-    color: rgba(255,255,255,.45);
+    background: #0d0d0d;
+    color: rgba(250,247,242,.35);
     text-align: center;
     padding: 1.4rem;
     font-size: .74rem;
-    border-top: 1px solid rgba(255,255,255,.1);
+    border-top: 1px solid var(--border);
   }
 
   /* ── MOBILSTØTTE ── */
@@ -629,11 +661,11 @@
       </div>
       <div class="split-visuell">
         <div style="font-size:.72rem;color:var(--dempet);margin-bottom:.8rem;font-weight:600;">✏️ LÆRERSIDE · Logg inn</div>
-        <div style="background:#fff;border:1.5px solid var(--kant);border-radius:10px;padding:1.2rem;margin-bottom:.8rem;">
-          <div style="font-size:.75rem;color:var(--dempet);margin-bottom:.3rem;">Ditt navn</div>
-          <div style="background:var(--groen-lys);border:1px solid var(--kant);border-radius:6px;padding:.45rem .7rem;font-size:.82rem;font-weight:600;color:var(--groen-mork);margin-bottom:.7rem;">Geir Edland</div>
-          <div style="font-size:.75rem;color:var(--dempet);margin-bottom:.3rem;">Passord</div>
-          <div style="background:var(--groen-lys);border:1px solid var(--kant);border-radius:6px;padding:.45rem .7rem;font-size:.82rem;color:var(--dempet);margin-bottom:.9rem;">••••••••</div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:.8rem;">
+          <div style="font-size:.75rem;color:var(--text-muted);margin-bottom:.3rem;">Ditt navn</div>
+          <div style="background:rgba(212,130,10,0.13);border:1px solid rgba(212,130,10,0.3);border-radius:6px;padding:.45rem .7rem;font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:.7rem;">Geir Edland</div>
+          <div style="font-size:.75rem;color:var(--text-muted);margin-bottom:.3rem;">Passord</div>
+          <div style="background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:6px;padding:.45rem .7rem;font-size:.82rem;color:var(--text-muted);margin-bottom:.9rem;">••••••••</div>
           <div style="background:var(--groen);color:#fff;border-radius:8px;padding:.5rem;text-align:center;font-size:.82rem;font-weight:700;">Logg inn</div>
         </div>
         <div style="font-size:.72rem;color:var(--dempet);text-align:center;">🔒 Kun lærere med passord kan redigere</div>
@@ -659,9 +691,9 @@
       </div>
       <div class="split-visuell" style="text-align:center;">
         <div style="font-size:2.5rem;margin-bottom:.8rem;">📅</div>
-        <div style="font-size:.85rem;font-weight:700;color:var(--groen-mork);margin-bottom:.4rem;">Abonner på ukeplanen</div>
+        <div style="font-size:.85rem;font-weight:700;color:var(--text);margin-bottom:.4rem;">Abonner på ukeplanen</div>
         <div style="font-size:.75rem;color:var(--dempet);margin-bottom:1.2rem;">Skann QR-koden med telefonen for å legge til planen i Apple Kalender</div>
-        <div style="background:#fff;border:1.5px solid var(--kant);border-radius:10px;width:90px;height:90px;margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center;font-size:2rem;">▦</div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;width:90px;height:90px;margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center;font-size:2rem;color:var(--text-muted);">▦</div>
         <div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;">
           <div style="background:var(--groen);color:#fff;border-radius:20px;padding:.3rem .8rem;font-size:.72rem;font-weight:600;">🍎 Apple Kalender</div>
           <div style="background:#4285f4;color:#fff;border-radius:20px;padding:.3rem .8rem;font-size:.72rem;font-weight:600;">Google Kalender</div>
@@ -693,7 +725,7 @@
       <div class="steg">
         <div class="steg-nr">3</div>
         <h3>Siden publiseres</h3>
-        <p>Nettsiden publiseres på en adresse dere velger – f.eks. ukeplan.skolen.no. Gratis via GitHub Pages.</p>
+        <p>Nettsiden publiseres på en adresse dere velger – f.eks. DittDomene.no. Gratis via GitHub Pages.</p>
       </div>
       <div class="steg">
         <div class="steg-nr">4</div>
@@ -725,7 +757,7 @@
       <div class="feature-kort">
         <span class="feature-ikon">🔓</span>
         <h3>Åpen kildekode</h3>
-        <p>Hele løsningen ligger på GitHub. Dere eier koden, kan lese den, og kan tilpasse den til egne behov.</p>
+        <p>Løsningen er enkel, transparent og funksjonell. Ikke noe muffins.</p>
       </div>
     </div>
   </div>
