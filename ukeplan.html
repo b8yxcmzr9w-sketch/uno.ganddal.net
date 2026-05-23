@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ukeplan – digital timeplan for naturbruksskoler</title>
+<style>
+  :root {
+    --groen: #6B8C2A;
+    --groen-mork: #3d4a1e;
+    --groen-lys: #e8f0d4;
+    --groen-lys2: #f4f8ec;
+    --hvit: #ffffff;
+    --tekst: #1a1a1a;
+    --dempet: #5a5a5a;
+    --kant: #d8e4bc;
+    --bg: #f9faf4;
+    --radius: 14px;
+    --shadow: 0 4px 20px rgba(61,74,30,.10);
+    --shadow-sm: 0 2px 8px rgba(61,74,30,.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--hvit);
+    color: var(--tekst);
+    line-height: 1.6;
+  }
+
+  /* ── TOPPMENY ── */
+  nav {
+    position: sticky;
+    top: 0;
+    background: var(--groen-mork);
+    padding: .9rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,.18);
+  }
+  .nav-logo {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .nav-logo span { opacity: .55; font-weight: 400; }
+  nav a.nav-cta {
+    background: var(--groen);
+    color: #fff;
+    padding: .45rem 1.1rem;
+    border-radius: 20px;
+    font-size: .84rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background .15s;
+  }
+  nav a.nav-cta:hover { background: #7fa332; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(155deg, var(--groen-mork) 0%, #526125 60%, var(--groen) 100%);
+    color: #fff;
+    padding: 5rem 2rem 4.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(255,255,255,.06) 0%, transparent 70%);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.25);
+    color: rgba(255,255,255,.9);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: .3rem .9rem;
+    border-radius: 20px;
+    margin-bottom: 1.4rem;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -.03em;
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: #c8e07a;
+  }
+  .hero-sub {
+    font-size: clamp(.95rem, 2vw, 1.15rem);
+    color: rgba(255,255,255,.78);
+    max-width: 600px;
+    margin: 0 auto 2.4rem;
+  }
+  .hero-knapper {
+    display: flex;
+    gap: .9rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-prim {
+    background: #c8e07a;
+    color: var(--groen-mork);
+    font-weight: 700;
+    font-size: .95rem;
+    padding: .75rem 1.8rem;
+    border-radius: 24px;
+    text-decoration: none;
+    transition: background .15s, transform .1s;
+    box-shadow: 0 4px 14px rgba(0,0,0,.18);
+  }
+  .btn-prim:hover { background: #d8ed96; transform: translateY(-1px); }
+  .btn-sek {
+    background: rgba(255,255,255,.12);
+    color: #fff;
+    font-weight: 600;
+    font-size: .95rem;
+    padding: .75rem 1.8rem;
+    border-radius: 24px;
+    text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,.3);
+    transition: background .15s;
+  }
+  .btn-sek:hover { background: rgba(255,255,255,.2); }
+
+  /* ── STATS-STRIP ── */
+  .stats {
+    background: var(--groen-lys);
+    border-top: 1.5px solid var(--kant);
+    border-bottom: 1.5px solid var(--kant);
+    padding: 1.6rem 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat strong {
+    display: block;
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--groen-mork);
+    letter-spacing: -.02em;
+  }
+  .stat span {
+    font-size: .78rem;
+    color: var(--dempet);
+    font-weight: 500;
+  }
+
+  /* ── SEKSJONER ── */
+  section { padding: 4.5rem 2rem; }
+  .seksjon-tittel {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .seksjon-tittel h2 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 800;
+    color: var(--groen-mork);
+    letter-spacing: -.02em;
+    margin-bottom: .5rem;
+  }
+  .seksjon-tittel p {
+    color: var(--dempet);
+    font-size: .97rem;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .container { max-width: 1060px; margin: 0 auto; }
+
+  /* ── FEATURE-GRID ── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 1.3rem;
+  }
+  .feature-kort {
+    background: var(--bg);
+    border: 1.5px solid var(--kant);
+    border-radius: var(--radius);
+    padding: 1.6rem 1.5rem;
+    transition: box-shadow .15s, transform .15s;
+  }
+  .feature-kort:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+  }
+  .feature-ikon {
+    font-size: 1.8rem;
+    margin-bottom: .8rem;
+    display: block;
+  }
+  .feature-kort h3 {
+    font-size: .97rem;
+    font-weight: 700;
+    color: var(--groen-mork);
+    margin-bottom: .4rem;
+  }
+  .feature-kort p {
+    font-size: .84rem;
+    color: var(--dempet);
+    line-height: 1.55;
+  }
+
+  /* ── SPLIT-SEKSJONER ── */
+  .split {
+    display: flex;
+    gap: 3.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .split.rev { flex-direction: row-reverse; }
+  .split-tekst { flex: 1; min-width: 260px; }
+  .split-tekst h2 {
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+    font-weight: 800;
+    color: var(--groen-mork);
+    letter-spacing: -.02em;
+    margin-bottom: .8rem;
+  }
+  .split-tekst p {
+    color: var(--dempet);
+    font-size: .93rem;
+    margin-bottom: .6rem;
+  }
+  .split-visuell {
+    flex: 1;
+    min-width: 260px;
+    background: var(--groen-lys2);
+    border: 1.5px solid var(--kant);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+  }
+
+  /* ── SJEKKLISTE ── */
+  .sjekkliste {
+    list-style: none;
+    margin-top: .5rem;
+  }
+  .sjekkliste li {
+    padding: .35rem 0;
+    padding-left: 1.6rem;
+    position: relative;
+    font-size: .9rem;
+    color: var(--dempet);
+  }
+  .sjekkliste li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--groen);
+    font-weight: 700;
+  }
+
+  /* ── SKJERMBILDE-MOCK ── */
+  .mock-vindu {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--kant);
+  }
+  .mock-topplist {
+    background: var(--groen-mork);
+    padding: .6rem 1rem;
+    display: flex;
+    gap: .4rem;
+    align-items: center;
+  }
+  .mock-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.25);
+  }
+  .mock-tittel {
+    color: rgba(255,255,255,.75);
+    font-size: .7rem;
+    margin-left: .4rem;
+    font-weight: 600;
+  }
+  .mock-innhold {
+    background: var(--bg);
+    padding: 1rem;
+  }
+  .mock-rad {
+    display: flex;
+    gap: .5rem;
+    margin-bottom: .5rem;
+  }
+  .mock-celle {
+    background: #fff;
+    border: 1px solid var(--kant);
+    border-radius: 6px;
+    padding: .35rem .6rem;
+    font-size: .7rem;
+    flex: 1;
+    color: var(--tekst);
+  }
+  .mock-celle.header {
+    background: var(--groen-lys);
+    font-weight: 700;
+    color: var(--groen-mork);
+    font-size: .65rem;
+  }
+  .mock-celle.aktiv {
+    border-color: var(--groen);
+    background: var(--groen-lys);
+    color: var(--groen-mork);
+    font-weight: 600;
+  }
+
+  /* ── FANER-ILLUSTRASJON ── */
+  .fane-strip {
+    display: flex;
+    gap: .4rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .fane-chip {
+    background: #fff;
+    border: 1.5px solid var(--kant);
+    border-radius: 20px;
+    padding: .28rem .7rem;
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--dempet);
+  }
+  .fane-chip.aktiv {
+    background: var(--groen);
+    color: #fff;
+    border-color: var(--groen);
+  }
+
+  /* ── TRINN-FOR-TRINN ── */
+  .steg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+  .steg {
+    text-align: center;
+    padding: 1.5rem 1rem;
+  }
+  .steg-nr {
+    width: 44px; height: 44px;
+    background: var(--groen);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto .9rem;
+  }
+  .steg h3 {
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--groen-mork);
+    margin-bottom: .4rem;
+  }
+  .steg p {
+    font-size: .82rem;
+    color: var(--dempet);
+  }
+
+  /* ── BAKGRUNNS-SEKSJONER ── */
+  .bg-lys { background: var(--groen-lys2); border-top: 1.5px solid var(--kant); border-bottom: 1.5px solid var(--kant); }
+  .bg-mork { background: var(--groen-mork); color: #fff; }
+  .bg-mork .seksjon-tittel h2 { color: #fff; }
+  .bg-mork .seksjon-tittel p { color: rgba(255,255,255,.65); }
+
+  /* ── KONTAKT / CTA ── */
+  .cta-boks {
+    background: linear-gradient(135deg, var(--groen-mork), #526125);
+    border-radius: 20px;
+    padding: 3.5rem 2rem;
+    text-align: center;
+    color: #fff;
+    max-width: 680px;
+    margin: 0 auto;
+    box-shadow: var(--shadow);
+  }
+  .cta-boks h2 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 800;
+    margin-bottom: .7rem;
+    letter-spacing: -.02em;
+  }
+  .cta-boks p {
+    color: rgba(255,255,255,.75);
+    font-size: .95rem;
+    margin-bottom: 2rem;
+  }
+  .cta-epost {
+    display: inline-block;
+    background: rgba(255,255,255,.12);
+    border: 1.5px solid rgba(255,255,255,.3);
+    color: #fff;
+    padding: .7rem 1.5rem;
+    border-radius: 24px;
+    font-size: .92rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background .15s;
+  }
+  .cta-epost:hover { background: rgba(255,255,255,.2); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--groen-mork);
+    color: rgba(255,255,255,.45);
+    text-align: center;
+    padding: 1.4rem;
+    font-size: .74rem;
+    border-top: 1px solid rgba(255,255,255,.1);
+  }
+
+  /* ── MOBILSTØTTE ── */
+  @media (max-width: 640px) {
+    nav { padding: .75rem 1.1rem; }
+    .hero { padding: 3.5rem 1.2rem 3rem; }
+    section { padding: 3rem 1.2rem; }
+    .stats { gap: 1.5rem; }
+    .split, .split.rev { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGASJON -->
+<nav>
+  <div class="nav-logo">
+    <a href="https://uno.ganddal.net" style="color:inherit;text-decoration:none;">← uno.ganddal.net</a>
+  </div>
+  <a class="nav-cta" href="https://uno.ganddal.net/#kontakt">Ta kontakt →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Digital praksisplan</div>
+  <h1>Én oversikt over<br><em>hele uken</em> – for elever og lærere</h1>
+  <p class="hero-sub">Ukeplan samler NPT, NNA, YFF og fellesfag i én nettbasert plan. Alltid oppdatert, alltid tilgjengelig – uten app og uten installasjon.</p>
+  <div class="hero-knapper">
+    <a class="btn-prim" href="https://uno.ganddal.net" target="_blank">Se live demo</a>
+    <a class="btn-sek" href="https://uno.ganddal.net/#kontakt" target="_blank">Bruksanvisning</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><strong>4</strong><span>fagtyper i én plan</span></div>
+  <div class="stat"><strong>0</strong><span>installasjoner nødvendig</span></div>
+  <div class="stat"><strong>📱</strong><span>Fungerer på alle enheter</span></div>
+  <div class="stat"><strong>📅</strong><span>Kalendersynkronisering</span></div>
+</div>
+
+<!-- FUNKSJONER -->
+<section>
+  <div class="container">
+    <div class="seksjon-tittel">
+      <h2>Alt læreren trenger, samlet på ett sted</h2>
+      <p>Ukeplan er bygget for den praktiske hverdagen på naturbruksskoler – med støtte for alle fagtyper og grupper.</p>
+    </div>
+    <div class="feature-grid">
+
+      <div class="feature-kort">
+        <span class="feature-ikon">📋</span>
+        <h3>Tilpasset din skole</h3>
+        <p>Løsningen tilpasses skolens egne programfag og struktur. Hvert programfag får sin egen side – i tillegg til en felles side for fellesfagene. Grupper, partier og aktive dager settes opp etter skolens opplegg.</p>
+      </div>
+
+      <div class="feature-kort">
+        <span class="feature-ikon">👩‍🎓</span>
+        <h3>Elevvisning og lærervisning</h3>
+        <p>Elever ser en ryddig ukeoversikt med filter for eget parti og YFF-gruppe. Lærere logger inn med passord for å redigere direkte i planen.</p>
+      </div>
+
+      <div class="feature-kort">
+        <span class="feature-ikon">📅</span>
+        <h3>Kalenderabonnement (iCal)</h3>
+        <p>Elever og lærere kan abonnere på planen i Google Kalender, Outlook eller Apple Kalender. Planen oppdateres automatisk – ingen manuell synkronisering.</p>
+      </div>
+
+      <div class="feature-kort">
+        <span class="feature-ikon">✨</span>
+        <h3>Hurtigregistrering med AI</h3>
+        <p>Skriv naturlig tekst – «Neste tirsdag i gym skal vi spille kanonball i gymsalen» – og AI fyller ut feltene automatisk. Sparer tid ved innlegging av mange økter.</p>
+      </div>
+
+      <div class="feature-kort">
+        <span class="feature-ikon">🗑️</span>
+        <h3>Søppeldunk og angrefunksjon</h3>
+        <p>Slettede økter havner i søppeldunken og kan enkelt gjenopprettes. Ingen frykt for å miste data ved en feilklikk.</p>
+      </div>
+
+      <div class="feature-kort">
+        <span class="feature-ikon">⚠️</span>
+        <h3>Konfliktvarsel</h3>
+        <p>Dersom en ny økt vil overskrive eksisterende data, får læreren en tydelig advarsel. Gammel data flyttes til søppeldunken automatisk.</p>
+      </div>
+
+      <div class="feature-kort">
+        <span class="feature-ikon">🖨️</span>
+        <h3>Utskrift</h3>
+        <p>Elevvisningen kan skrives ut med ett klikk – optimalisert layout uten navigasjon og verktøylinjer, klar for å henges opp på tavla.</p>
+      </div>
+
+      <div class="feature-kort">
+        <span class="feature-ikon">⚙️</span>
+        <h3>Innstillinger og tilpasning</h3>
+        <p>Konfigurer hvilke dager hvert fag er aktivt, sett opp YFF-grupper og partier, og legg til egne fellesfag. Alt tilpasses skolens oppsett.</p>
+      </div>
+
+      <div class="feature-kort">
+        <span class="feature-ikon">☁️</span>
+        <h3>Google Sheets som datalag</h3>
+        <p>All data lagres i Google Sheets via Apps Script. Lærerne kan se og redigere data direkte i Sheets ved behov – ingen ekstern database å drifte.</p>
+      </div>
+
+      <div class="feature-kort">
+        <span class="feature-ikon">💸</span>
+        <h3>Ingen løpende utgifter</h3>
+        <p>Løsningen kjøres på gratis tjenester: GitHub Pages for nettsiden og Google Sheets for datalagring. Ingen abonnement, ingen lisenser – bare en nettadresse dere velger selv.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ELEVSIDE-SPLIT -->
+<section class="bg-lys">
+  <div class="container">
+    <div class="split">
+      <div class="split-tekst">
+        <h2>Enkel elevvisning – uten innlogging</h2>
+        <p>Elever åpner siden i nettleseren og ser ukens plan med det samme. Ingen app, ingen konto, ingen friksjon.</p>
+        <ul class="sjekkliste">
+          <li>Naviger fritt mellom uker</li>
+          <li>Filtrer på eget parti og YFF-gruppe</li>
+          <li>Abonner på planen i kalenderappen</li>
+          <li>Skriv ut ukens plan</li>
+          <li>Fungerer på mobil, nettbrett og PC</li>
+        </ul>
+      </div>
+      <div class="split-visuell">
+        <div class="fane-strip">
+          <div class="fane-chip aktiv">📋 Elevside</div>
+          <div class="fane-chip">✏️ Lærerside</div>
+        </div>
+        <div class="mock-vindu">
+          <div class="mock-topplist">
+            <div class="mock-dot"></div>
+            <div class="mock-dot"></div>
+            <div class="mock-dot"></div>
+            <span class="mock-tittel">Ukeplan · Uke 22</span>
+          </div>
+          <div class="mock-innhold">
+            <div class="mock-rad">
+              <div class="mock-celle header">Dag</div>
+              <div class="mock-celle header">Fag</div>
+              <div class="mock-celle header">Aktivitet</div>
+              <div class="mock-celle header">Sted</div>
+            </div>
+            <div class="mock-rad">
+              <div class="mock-celle">Mandag</div>
+              <div class="mock-celle aktiv">NPT</div>
+              <div class="mock-celle">Stell av storfe</div>
+              <div class="mock-celle">Fjøs</div>
+            </div>
+            <div class="mock-rad">
+              <div class="mock-celle">Tirsdag</div>
+              <div class="mock-celle">NNA</div>
+              <div class="mock-celle">Frøsåing</div>
+              <div class="mock-celle">Veksthus</div>
+            </div>
+            <div class="mock-rad">
+              <div class="mock-celle">Onsdag</div>
+              <div class="mock-celle aktiv">YFF · Hund</div>
+              <div class="mock-celle">Lydighet trinn 2</div>
+              <div class="mock-celle">Uteområde</div>
+            </div>
+            <div class="mock-rad">
+              <div class="mock-celle">Torsdag</div>
+              <div class="mock-celle">Fellesfag</div>
+              <div class="mock-celle">Norsk – skriftlig</div>
+              <div class="mock-celle">Rom 204</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LÆRERSIDE-SPLIT -->
+<section>
+  <div class="container">
+    <div class="split rev">
+      <div class="split-tekst">
+        <h2>Redigering direkte i planen – for lærere</h2>
+        <p>Lærere logger inn med passord og redigerer planen direkte i rutenettet. Endringer er synlige for elever umiddelbart.</p>
+        <ul class="sjekkliste">
+          <li>Klikk på en celle og skriv inn informasjon</li>
+          <li>Høyreklikk for sletting og søppeldunk</li>
+          <li>Hurtigregistrering med fri tekst og AI</li>
+          <li>Konfliktvarsel ved overlappende data</li>
+          <li>Filtrer på egne økter («Mine uker»)</li>
+          <li>Abonner på eget kalenderuttak</li>
+        </ul>
+      </div>
+      <div class="split-visuell">
+        <div style="font-size:.72rem;color:var(--dempet);margin-bottom:.8rem;font-weight:600;">✏️ LÆRERSIDE · Logg inn</div>
+        <div style="background:#fff;border:1.5px solid var(--kant);border-radius:10px;padding:1.2rem;margin-bottom:.8rem;">
+          <div style="font-size:.75rem;color:var(--dempet);margin-bottom:.3rem;">Ditt navn</div>
+          <div style="background:var(--groen-lys);border:1px solid var(--kant);border-radius:6px;padding:.45rem .7rem;font-size:.82rem;font-weight:600;color:var(--groen-mork);margin-bottom:.7rem;">Geir Edland</div>
+          <div style="font-size:.75rem;color:var(--dempet);margin-bottom:.3rem;">Passord</div>
+          <div style="background:var(--groen-lys);border:1px solid var(--kant);border-radius:6px;padding:.45rem .7rem;font-size:.82rem;color:var(--dempet);margin-bottom:.9rem;">••••••••</div>
+          <div style="background:var(--groen);color:#fff;border-radius:8px;padding:.5rem;text-align:center;font-size:.82rem;font-weight:700;">Logg inn</div>
+        </div>
+        <div style="font-size:.72rem;color:var(--dempet);text-align:center;">🔒 Kun lærere med passord kan redigere</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KALENDER-SPLIT -->
+<section class="bg-lys">
+  <div class="container">
+    <div class="split">
+      <div class="split-tekst">
+        <h2>Kalenderabonnement – planen rett i telefonen</h2>
+        <p>Elever og lærere kan abonnere på ukeplanen direkte i sin foretrukne kalenderapp. Planen oppdateres automatisk når læreren gjør endringer.</p>
+        <ul class="sjekkliste">
+          <li>Google Kalender, Outlook og Apple Kalender</li>
+          <li>Elever kan filtrere på eget parti og YFF-gruppe</li>
+          <li>Lærere får kalenderuttak for egne fag</li>
+          <li>QR-kode for enkel abonnering med telefonen</li>
+          <li>Kalendernavnet reflekterer utvalget – f.eks. <em>Ukeplan_1E_P1_Hund</em></li>
+        </ul>
+      </div>
+      <div class="split-visuell" style="text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:.8rem;">📅</div>
+        <div style="font-size:.85rem;font-weight:700;color:var(--groen-mork);margin-bottom:.4rem;">Abonner på ukeplanen</div>
+        <div style="font-size:.75rem;color:var(--dempet);margin-bottom:1.2rem;">Skann QR-koden med telefonen for å legge til planen i Apple Kalender</div>
+        <div style="background:#fff;border:1.5px solid var(--kant);border-radius:10px;width:90px;height:90px;margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center;font-size:2rem;">▦</div>
+        <div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;">
+          <div style="background:var(--groen);color:#fff;border-radius:20px;padding:.3rem .8rem;font-size:.72rem;font-weight:600;">🍎 Apple Kalender</div>
+          <div style="background:#4285f4;color:#fff;border-radius:20px;padding:.3rem .8rem;font-size:.72rem;font-weight:600;">Google Kalender</div>
+          <div style="background:#0078d4;color:#fff;border-radius:20px;padding:.3rem .8rem;font-size:.72rem;font-weight:600;">Outlook</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIK FUNGERER DET -->
+<section>
+  <div class="container">
+    <div class="seksjon-tittel">
+      <h2>Slik kommer du i gang</h2>
+      <p>Ukeplan settes opp én gang og vedlikeholdes deretter av lærerne selv – uten IT-avdeling.</p>
+    </div>
+    <div class="steg-grid">
+      <div class="steg">
+        <div class="steg-nr">1</div>
+        <h3>Google Sheets opprettes</h3>
+        <p>Vi setter opp et Google Sheets-ark med riktig struktur for din skole og klasse. Tar under én time.</p>
+      </div>
+      <div class="steg">
+        <div class="steg-nr">2</div>
+        <h3>Apps Script deployes</h3>
+        <p>Et lite skript kobler nettsiden til Sheets. Kjøres én gang – ingen oppdateringer eller vedlikehold.</p>
+      </div>
+      <div class="steg">
+        <div class="steg-nr">3</div>
+        <h3>Siden publiseres</h3>
+        <p>Nettsiden publiseres på en adresse dere velger – f.eks. ukeplan.skolen.no. Gratis via GitHub Pages.</p>
+      </div>
+      <div class="steg">
+        <div class="steg-nr">4</div>
+        <h3>Lærerne tar over</h3>
+        <p>Lærerne logger inn og fyller inn planen uke for uke. Elever kan se planen umiddelbart.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEKNISK INFO -->
+<section class="bg-lys">
+  <div class="container">
+    <div class="seksjon-tittel">
+      <h2>Teknisk – enkelt og driftsikre valg</h2>
+      <p>Ingen servere å drifte, ingen lisenser å betale, ingen app å installere.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-kort">
+        <span class="feature-ikon">📊</span>
+        <h3>Google Sheets som database</h3>
+        <p>All data ligger i Google Sheets. Lærerne kan åpne arket direkte ved behov. Gratis og driftsikkert.</p>
+      </div>
+      <div class="feature-kort">
+        <span class="feature-ikon">🌐</span>
+        <h3>Kjører i nettleseren</h3>
+        <p>Ingen app å installere. Fungerer på alle enheter med en nettleser – mobil, nettbrett og PC.</p>
+      </div>
+      <div class="feature-kort">
+        <span class="feature-ikon">🔓</span>
+        <h3>Åpen kildekode</h3>
+        <p>Hele løsningen ligger på GitHub. Dere eier koden, kan lese den, og kan tilpasse den til egne behov.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT / CTA -->
+<section>
+  <div class="container">
+    <div class="cta-boks">
+      <h2>Interessert? Ta kontakt!</h2>
+      <p>Ukeplan er utviklet ved Øksnevad naturbruksskole og deles gjerne med andre skoler. Vi hjelper med oppsett.</p>
+      <a class="cta-epost" href="https://uno.ganddal.net/#kontakt" target="_blank">📋 Tilpass – Ukeplan</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © Geddi · <a href="https://uno.ganddal.net" style="color:inherit;">uno.ganddal.net</a>
+</footer>
+
+</body>
+</html>
