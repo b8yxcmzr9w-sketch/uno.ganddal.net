@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Geddi lager nettbaserte verktøy for skole og undervisning – enkle, morsomme og nyttige.">
+  <title>uno · Verktøy av Geddi</title>
+  <link rel="icon" href="img/blogo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== NAVIGASJON ===== -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-img"><img src="img/blogo.png" alt="Geddi"></div>
+        <span>uno</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#produkter" class="nav-link">Produkter</a></li>
+        <li><a href="#om" class="nav-link">Om</a></li>
+        <li><a href="#kontakt" class="nav-link">Kontakt</a></li>
+      </ul>
+      <a href="#kontakt" class="btn btn-accent nav-cta">Ta kontakt</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Åpne meny">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="topp">
+    <div class="hero-bg-glow"></div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <span class="badge">🐾 Verktøy av Geddi</span>
+        <h1>Nyttig.<br>Enkelt.<br><span class="accent">Morsomt.</span></h1>
+        <p class="hero-sub">
+          Nettbaserte verktøy laget for lærere og elever – med personlighet.
+          Prøv dem gratis, bestill tilgang, eller få noe skreddersydd.
+        </p>
+        <div class="hero-actions">
+          <a href="#produkter" class="btn btn-accent">Se produktene ↓</a>
+          <a href="#kontakt" class="btn btn-ghost">Ta kontakt</a>
+        </div>
+      </div>
+      <div class="hero-image-wrap">
+        <div class="hero-image-card">
+          <img src="img/bhero.png" alt="Geddi-hunden" id="heroDog">
+        </div>
+        <div class="hero-paw hero-paw--1">🐾</div>
+        <div class="hero-paw hero-paw--2">🐾</div>
+        <div class="hero-paw hero-paw--3">🐾</div>
+      </div>
+    </div>
+    <a href="#produkter" class="hero-scroll" aria-label="Scroll ned">
+      <span>Scroll ned</span>
+      <div class="scroll-bar"></div>
+    </a>
+  </section>
+
+  <!-- ===== PRODUKTER ===== -->
+  <section class="section" id="produkter">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Produkter</span>
+        <h2>Hva har Geddi laget?</h2>
+        <p>Verktøy testet i virkelige klasserom. Noen er åpne for alle, andre krever tilgang.</p>
+      </div>
+
+      <div class="products-grid">
+
+        <div class="product-card reveal" data-tilt>
+          <div class="card-header">
+            <img src="img/bvinke.png" alt="" class="card-dog">
+          </div>
+          <span class="card-tag tag-free">Gratis</span>
+          <h3>Klokketrening</h3>
+          <p>Øv på å lese analog klokke – interaktivt og tilpasset. Perfekt for elever som trenger litt ekstra tid med klokka.</p>
+          <div class="card-footer">
+            <a href="https://opplæring.ganddal.net/Klokketrening" target="_blank" rel="noopener" class="btn btn-accent btn-sm">Åpne →</a>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-tilt>
+          <div class="card-header">
+            <img src="img/bpeke.png" alt="" class="card-dog">
+          </div>
+          <span class="card-tag tag-free">Gratis</span>
+          <h3>Lesetrening</h3>
+          <p>Tren lesehastighet og ordavkoding. To moduser: flylesing og tekst. Fungerer på alle enheter.</p>
+          <div class="card-footer">
+            <a href="https://opplæring.ganddal.net/Lesetrening" target="_blank" rel="noopener" class="btn btn-accent btn-sm">Åpne →</a>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-tilt>
+          <div class="card-header card-header--screenshot">
+            <img src="img/screen-ukeplan.png" alt="Ukeplan forhåndsvisning" class="card-screenshot">
+          </div>
+          <span class="card-tag tag-access">Tilgang</span>
+          <h3>Ukeplan</h3>
+          <p>Ukentlig planlegging for lærere og assistenter. Koblet til Google Sheets og alltid oppdatert.</p>
+          <div class="card-footer">
+            <a href="#kontakt" class="btn btn-ghost btn-sm">Bestill tilgang →</a>
+          </div>
+        </div>
+
+        <div class="product-card product-card--custom reveal">
+          <div class="custom-star">✦</div>
+          <h3>Noe helt eget?</h3>
+          <p>Har du en idé som ikke finnes ennå? Geddi lager skreddersydde verktøy tilpasset akkurat din hverdag.</p>
+          <div class="card-footer">
+            <a href="#kontakt" class="btn btn-accent btn-sm">La oss snakkes →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OM ===== -->
+  <section class="section section--alt" id="om">
+    <div class="container">
+
+      <div class="about-layout">
+        <div class="about-text reveal">
+          <span class="section-tag">Om Geddi</span>
+          <h2>Verktøy laget av noen som kjenner klasserommet</h2>
+          <p>
+            Med over 25 års erfaring fra praktisk spesialpedagogikk vet jeg hva som faktisk
+            fungerer – og hva som ikke gjør det. Alt for mange nye IT-løsninger i skolen
+            er uoversiktlige og lite intuitive. De er laget for systemet, ikke for eleven.
+          </p>
+          <p>
+            Jeg ser også at ungdom altfor ofte ender opp med tilgang til barnslige nettspill
+            fremfor øvingsplattformer som er tilpasset deres alder og livssituasjon.
+            Det er ingen verdig erstatning for god opplæring.
+          </p>
+          <p>
+            Derfor lager jeg verktøy som er enkle, ryddige og trygge –
+            laget for dem som faktisk skal bruke dem.
+          </p>
+        </div>
+        <div class="about-stat-col reveal">
+          <div class="stat-card">
+            <span class="stat-num">25+</span>
+            <span class="stat-label">års erfaring i spesialpedagogikk</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">Ekte</span>
+            <span class="stat-label">behov fra ekte klasserom</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">Enkelt</span>
+            <span class="stat-label">alltid – for eleven, ikke systemet</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider reveal"></div>
+
+      <div class="section-header reveal">
+        <span class="section-tag">Slik fungerer det</span>
+        <h2>Fra idé til virkelighet</h2>
+        <p>Vil du ha tilgang til et produkt, eller noe skreddersydd? Tre enkle steg.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <h3>Ta kontakt</h3>
+          <p>Fyll ut skjemaet og fortell hva du trenger. Ingen teknisk kunnskap nødvendig.</p>
+        </div>
+        <div class="step-arrow reveal">→</div>
+        <div class="step reveal">
+          <div class="step-num">02</div>
+          <h3>Vi snakkes</h3>
+          <p>En liten prat (digitalt eller fysisk) for å finne ut hva som passer best for deg.</p>
+        </div>
+        <div class="step-arrow reveal">→</div>
+        <div class="step reveal">
+          <div class="step-num">03</div>
+          <h3>Levert!</h3>
+          <p>Du får et verktøy som faktisk fungerer i din hverdag. Og Geddi-hunden er fornøyd. 🐾</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== KONTAKT ===== -->
+  <section class="section" id="kontakt">
+    <div class="container">
+      <div class="contact-layout">
+
+        <div class="contact-left reveal">
+          <span class="section-tag">Kontakt</span>
+          <h2>La oss snakkes!</h2>
+          <p>Fyll ut skjemaet – Geddi svarer så snart som mulig.</p>
+          <div class="contact-dog-wrap">
+            <img src="img/btenke.png" alt="Geddi-hunden" id="contactDog" class="contact-dog">
+          </div>
+        </div>
+
+        <div class="contact-right reveal">
+          <!-- Bytt ut DITT_FORM_ID med din faktiske Formspree-ID fra formspree.io -->
+          <form class="contact-form" id="contactForm" action="https://formspree.io/f/xzdwvpga" method="POST">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Navn</label>
+                <input type="text" id="name" name="name" placeholder="Hva heter du?" required autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label for="email">E-post</label>
+                <input type="email" id="email" name="email" placeholder="din@epost.no" required autocomplete="email">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="type">Hva gjelder det?</label>
+              <select id="type" name="type" required>
+                <option value="" disabled selected>Velg et alternativ...</option>
+                <option value="tilgang-klokketrening">Tilgang – Klokketrening</option>
+                <option value="tilgang-lesetrening">Tilgang – Lesetrening</option>
+                <option value="tilgang-ukeplan">Tilgang – Ukeplan</option>
+                <option value="tilgang-praksisplan">Tilgang – Praksisplan</option>
+                <option value="skreddersøm">Skreddersydd løsning</option>
+                <option value="annet">Noe annet</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Melding</label>
+              <textarea id="message" name="message" rows="4" placeholder="Fortell litt mer om hva du trenger..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-accent btn-full" id="submitBtn">
+              Send melding 🐾
+            </button>
+
+            <div class="form-success" id="formSuccess" hidden>
+              <img src="img/bvinke.png" alt="Hunden vinker">
+              <p>Takk! Geddi svarer deg snart. 🎉</p>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="footer-logo-wrap"><img src="img/blogo.png" alt="Geddi"></div>
+          <span>uno · ganddal.net</span>
+        </div>
+        <p class="footer-copy">© Geddi 2026 · Laget med ❤️ og én svart hund</p>
+        <nav class="footer-nav" aria-label="Bunnavigasjon">
+          <a href="#produkter">Produkter</a>
+          <a href="#kontakt">Kontakt</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Easter egg popup -->
+  <div class="woof-popup" id="woofPopup" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
