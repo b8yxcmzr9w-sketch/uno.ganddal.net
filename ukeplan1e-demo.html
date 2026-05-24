@@ -429,7 +429,7 @@ function byggSkolerute() {
 // APPDATA
 // ================================================================
 var allData = {
-  innstillinger:{skolenavn:'Øksnevad naturbruksskole',klassenavn:'1E',skoleaar:'2025/2026',antallPartier:2,aktiveDager:['mandag','onsdag'],yffGrupper:['Hund','Friluftsliv','Husdyr','Verksted og maskin','Hest'],aktiveFag:['NPT','NNA','YFF']},
+  innstillinger:{skolenavn:'Elevenes favorittskole',klassenavn:'1E',skoleaar:'2025/2026',antallPartier:2,aktiveDager:['mandag','onsdag'],yffGrupper:['Hund','Friluftsliv','Husdyr','Verksted og maskin','Hest'],aktiveFag:['NPT','NNA','YFF']},
   laerere:[{navn:'Geir Eide',farge:'#3d5010',admin:true,fag:['NPT']},{navn:'Kari Hole',farge:'#7a5c18',admin:false,fag:['NPT','YFF']},{navn:'Lars Austrheim',farge:'#2a4a30',admin:false,fag:['NNA','YFF']}],
   fag:[{navn:'NPT',type:'standard',grupper:[],dager:['mandag','onsdag']},{navn:'NNA',type:'standard',grupper:[],dager:['fredag']},{navn:'YFF',type:'standard',grupper:['Hund','Friluftsliv','Husdyr','Verksted og maskin','Hest'],dager:['tirsdag','torsdag']}],
   skolerute:[],
@@ -437,9 +437,10 @@ var allData = {
 };
 var LAGRE_NØKKEL='demo_ukeplan_data';
 var pendingChanges={};
+function beregnSkoleaar(){var d=new Date(),y=d.getFullYear();return d.getMonth()>=4?y+'/'+(y+1):(y-1)+'/'+y;}
 function lastData(){
-  try{var raw=localStorage.getItem(LAGRE_NØKKEL);if(raw){var saved=JSON.parse(raw);if(saved&&saved.plan){allData=saved;return;}}}catch(e){}
-  var gen=genererDemoData();allData.plan.NPT=gen.npt;allData.plan.NNA=gen.nna;allData.plan.YFF=gen.yff;allData.skolerute=byggSkolerute();lagreDataStille();
+  try{var raw=localStorage.getItem(LAGRE_NØKKEL);if(raw){var saved=JSON.parse(raw);if(saved&&saved.plan){allData=saved;allData.innstillinger.skoleaar=beregnSkoleaar();return;}}}catch(e){}
+  var gen=genererDemoData();allData.plan.NPT=gen.npt;allData.plan.NNA=gen.nna;allData.plan.YFF=gen.yff;allData.skolerute=byggSkolerute();allData.innstillinger.skoleaar=beregnSkoleaar();lagreDataStille();
 }
 function lagreDataStille(){try{localStorage.setItem(LAGRE_NØKKEL,JSON.stringify(allData));}catch(e){}}
 function getSlot(fag,uke,dag,pk){
