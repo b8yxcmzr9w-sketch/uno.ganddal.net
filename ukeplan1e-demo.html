@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ukeplan 1E – Demo</title>
+<style>
+:root{--bg:#f5f4ef;--kort:#fff;--kant:#ddd8c4;--tekst:#1a1a14;--dempet:#5a5a40;--dempet2:#8a8a6a;--nav:#3d4a1e;--groen:#6B8C2A;--oransje:#A0722A;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--tekst);min-height:100vh;}
+button,select,input,textarea{font-family:inherit;}
+.demo-banner{background:#7b4f00;color:#fff;text-align:center;font-size:.72rem;padding:.24rem .5rem;letter-spacing:.03em;}
+.demo-banner a{color:#ffd680;text-decoration:underline;}
+.demo-banner a:hover{color:#fff;}
+
+/* ── Login ── */
+#login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);}
+.login-kort{background:var(--kort);border:1px solid var(--kant);border-radius:14px;padding:2rem 1.6rem;width:100%;max-width:340px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.08);}
+.login-ikon{width:56px;height:56px;border-radius:12px;background:var(--nav);margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:1.7rem;}
+.login-kort h2{font-size:1.05rem;font-weight:700;margin-bottom:.25rem;}
+.login-kort p{font-size:.76rem;color:var(--dempet);margin-bottom:1.2rem;}
+.login-felt{width:100%;padding:.52rem .75rem;border:1.5px solid var(--kant);border-radius:8px;font-size:.84rem;margin-bottom:.55rem;background:var(--bg);outline:none;transition:border-color .15s;}
+.login-felt:focus{border-color:var(--groen);}
+.btn-login{width:100%;padding:.6rem;background:var(--nav);color:#fff;border:none;border-radius:8px;font-size:.84rem;cursor:pointer;font-weight:600;transition:opacity .15s;margin-top:.25rem;}
+.btn-login:hover{opacity:.88;}
+.feil{color:#c0392b;font-size:.74rem;margin-top:.4rem;min-height:1.1em;}
+.demo-hint{font-size:.7rem;color:var(--dempet2);margin-top:.75rem;background:#f0efe6;border-radius:6px;padding:.4rem .7rem;line-height:1.5;text-align:left;}
+.tilbake-link{display:block;margin-top:.9rem;font-size:.74rem;color:var(--dempet);text-decoration:none;}
+.tilbake-link:hover{color:var(--nav);}
+
+/* ── Header ── */
+#app{display:none;}
+header{background:var(--nav);color:#fff;padding:.72rem 1.2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem;}
+.hdr-left{display:flex;align-items:center;gap:.7rem;}
+.hdr-titler{display:flex;flex-direction:column;}
+header h1{font-size:.95rem;font-weight:700;line-height:1.2;}
+.hdr-sub{font-size:.68rem;opacity:.6;}
+.hdr-right{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;}
+.hdr-btn{background:transparent;border:1.5px solid rgba(255,255,255,.35);color:#fff;border-radius:8px;padding:.28rem .72rem;cursor:pointer;font-size:.75rem;font-weight:500;transition:background .15s;}
+.hdr-btn:hover{background:rgba(255,255,255,.14);}
+.innlogget-chip{display:inline-block;padding:.15rem .58rem;border-radius:20px;font-size:.74rem;font-weight:600;color:#fff;background:var(--groen);}
+
+/* ── Tabs ── */
+.tabs{display:flex;background:#2e3a14;border-bottom:2px solid #1a2208;}
+.tabs button{flex:1;padding:.52rem .9rem;font-size:.76rem;font-weight:600;background:transparent;border:none;color:rgba(255,255,255,.45);cursor:pointer;transition:color .15s;}
+.tabs button.aktiv{color:#fff;border-bottom:2px solid var(--groen);margin-bottom:-2px;}
+
+/* ── Elev kontroller ── */
+.elev-kontroller{background:var(--nav);padding:.45rem 1rem;display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;box-shadow:0 2px 8px rgba(0,0,0,.18);position:sticky;top:0;z-index:10;}
+.elev-nav-gruppe{display:inline-flex;align-items:center;background:rgba(255,255,255,.13);border:1.5px solid rgba(255,255,255,.22);border-radius:24px;overflow:hidden;}
+.elev-nav-pil{background:transparent;border:none;padding:.44rem .95rem;font-size:1.05rem;cursor:pointer;color:#fff;transition:background .15s;min-height:40px;line-height:1;}
+.elev-nav-pil:hover{background:rgba(255,255,255,.15);}
+.uke-label{padding:.36rem .72rem;font-size:.9rem;font-weight:700;color:#fff;border-left:1px solid rgba(255,255,255,.22);border-right:1px solid rgba(255,255,255,.22);min-width:76px;text-align:center;cursor:pointer;user-select:none;}
+.uke-input{width:46px;border:none;background:transparent;font-size:.9rem;font-weight:700;text-align:center;outline:none;padding:0;color:#fff;}
+.elev-sek-btn{background:rgba(255,255,255,.13);color:rgba(255,255,255,.9);border:1.5px solid rgba(255,255,255,.22);border-radius:20px;padding:.38rem .82rem;font-size:.78rem;font-weight:600;cursor:pointer;transition:background .15s;min-height:40px;}
+.elev-sek-btn:hover{background:rgba(255,255,255,.22);}
+.elev-sek-btn.aktiv{background:#fff;color:var(--nav);border-color:transparent;}
+.elev-chip-wrap{display:inline-flex;align-items:center;gap:.22rem;background:rgba(255,255,255,.13);border:1.5px solid rgba(255,255,255,.22);border-radius:20px;padding:.3rem .52rem .3rem .72rem;cursor:pointer;min-height:40px;}
+.elev-chip-wrap.aktiv{background:rgba(255,255,255,.22);border-color:#fff;}
+.elev-chip-icon{font-size:.85rem;line-height:1;}
+.elev-chip-select{appearance:none;-webkit-appearance:none;background:transparent;border:none;font-size:.78rem;font-weight:600;color:#fff;cursor:pointer;outline:none;padding:0;max-width:150px;}
+.elev-chip-arrow{font-size:.58rem;color:rgba(255,255,255,.75);line-height:1;}
+.elev-chip-reset{background:none;border:1.5px solid rgba(255,255,255,.22);border-radius:20px;padding:.3rem .78rem;font-size:.76rem;color:rgba(255,255,255,.9);cursor:pointer;font-weight:600;min-height:40px;}
+.elev-chip-reset:hover{border-color:#ff8a80;color:#ff8a80;}
+
+/* ── Elev main / plan-grid ── */
+#elev-main{padding:.75rem 1.2rem 3rem;}
+.ferie-banner{background:#fff3cd;border:1px solid #ffc107;border-radius:9px;padding:.7rem 1rem;margin-bottom:.75rem;font-weight:600;color:#856404;font-size:.88rem;text-align:center;}
+.ingen-data{color:var(--dempet2);font-size:.82rem;padding:.5rem 0;}
+.uke-plan-grid{border:1px solid var(--kant);border-radius:10px;overflow:hidden;}
+.dag-col{display:flex;flex-direction:column;min-height:60px;}
+.dag-col-header{background:var(--nav);color:#fff;font-size:.68rem;font-weight:700;padding:.38rem .4rem;text-align:center;text-transform:uppercase;letter-spacing:.04em;}
+.dag-col-header .dato{font-size:.6rem;font-weight:400;opacity:.78;margin-top:.1rem;}
+.dag-innhold{display:flex;flex-direction:column;gap:.35rem;padding:.25rem;}
+.plan-celle{background:var(--kort);border-right:1px solid var(--kant);border-bottom:1px solid var(--kant);font-size:.75rem;}
+.plan-celle.tom{opacity:.3;min-height:38px;}
+.plan-celle.ferie-celle{background:#fff3cd;color:#856404;font-weight:600;text-align:center;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:.6rem .4rem;font-size:.78rem;}
+.kort-wrap{border-radius:5px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.07);}
+.kort-bar{height:3px;}
+.kort-innhold{padding:.38rem .46rem;background:var(--kort);}
+.kort-meta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.1rem;margin-bottom:.2rem;}
+.kort-fag{font-size:.68rem;font-weight:700;white-space:nowrap;}
+.laerer-chip{display:inline-block;font-size:.6rem;font-weight:600;padding:.08rem .34rem;border-radius:20px;color:#fff;white-space:nowrap;}
+.akt{font-weight:600;margin-bottom:.15rem;line-height:1.3;font-size:.81rem;}
+.opp{font-size:.67rem;color:var(--dempet);margin-bottom:.1rem;}
+.inf{font-size:.67rem;color:#5a4a2a;background:#fffbe8;border-left:2px solid #e0c84a;padding:.1rem .28rem;margin:.1rem 0;border-radius:0 3px 3px 0;}
+.sist-oppdatert{font-size:.67rem;color:var(--dempet2);padding:.25rem 1.2rem;text-align:right;}
+
+/* ── Lærer / redigering ── */
+.verktolinje{background:var(--nav);padding:.45rem 1rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;position:sticky;top:0;z-index:10;}
+.pw-btn{background:rgba(255,255,255,.13);color:rgba(255,255,255,.9);border:1.5px solid rgba(255,255,255,.22);border-radius:8px;padding:0 .75rem;font-size:.76rem;cursor:pointer;font-weight:600;height:34px;transition:background .15s;}
+.pw-btn:hover{background:rgba(255,255,255,.22);}
+.pw-btn.aktiv{background:#fff;color:var(--nav);}
+.lagre-btn{background:rgba(255,255,255,.1);color:rgba(255,255,255,.38);border:1.5px solid rgba(255,255,255,.18);border-radius:8px;padding:0 1.3rem;font-size:.78rem;font-weight:700;cursor:default;height:34px;transition:all .15s;}
+.lagre-btn.aktiv{background:#c0392b;color:#fff;border-color:#c0392b;cursor:pointer;animation:lagre-puls 1.8s ease-in-out infinite;}
+.lagre-btn.aktiv:hover{animation:none;opacity:.9;}
+@keyframes lagre-puls{0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,.5);}50%{box-shadow:0 0 0 5px rgba(192,57,43,0);}}
+.laerer-nav-gruppe{display:inline-flex;align-items:center;background:rgba(255,255,255,.13);border:1.5px solid rgba(255,255,255,.22);border-radius:24px;overflow:hidden;}
+.laerer-nav-pil{background:transparent;border:none;padding:.32rem .88rem;font-size:1.05rem;cursor:pointer;color:#fff;min-height:34px;transition:background .15s;}
+.laerer-nav-pil:hover{background:rgba(255,255,255,.18);}
+.laerer-uke-label{padding:.28rem .65rem;font-size:.86rem;font-weight:700;color:#fff;border-left:1px solid rgba(255,255,255,.22);border-right:1px solid rgba(255,255,255,.22);min-width:72px;text-align:center;}
+.fag-tabs{display:flex;background:#f0efe6;border-bottom:1px solid var(--kant);overflow-x:auto;padding:0 1.2rem;position:sticky;top:52px;z-index:9;box-shadow:0 2px 6px rgba(0,0,0,.08);}
+.fag-tabs button{flex:none;padding:.42rem .8rem;font-size:.74rem;font-weight:600;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--dempet);cursor:pointer;white-space:nowrap;}
+.fag-tabs button.aktiv{color:#fff;background:var(--nav);border-bottom-color:var(--nav);border-radius:5px 5px 0 0;padding-bottom:.55rem;}
+.tabell-wrapper{overflow-x:auto;padding:.5rem 1.2rem 3rem;}
+table.grid{border-collapse:collapse;font-size:.74rem;min-width:520px;width:100%;}
+table.grid td,table.grid th{border:1px solid #d6d4cc;padding:0;vertical-align:top;}
+table.grid th{background:#3d4a1e;color:#fff;font-size:.68rem;font-weight:700;padding:.3rem .4rem;text-align:left;}
+tr.uke-hdr td{background:#e8e6d0;font-size:.68rem;font-weight:700;padding:.3rem .5rem;color:#333;}
+tr.ferie-rad td{background:#fff3cd;color:#856404;font-size:.73rem;padding:.35rem .5rem;font-style:italic;}
+td.dag-celle{background:#f4f3ee;font-size:.63rem;font-weight:700;color:#888;text-align:center;vertical-align:middle;width:48px;white-space:nowrap;}
+td.parti-celle{font-size:.65rem;font-weight:700;text-align:center;vertical-align:middle;width:22px;color:var(--nav);}
+td.col-akt{width:145px;}td.col-opp{width:115px;}td.col-info{min-width:155px;}td.col-laer{width:105px;}
+.slot-edit-area{width:100%;border:none;border-bottom:1px solid #e8e6e0;padding:.22rem .28rem;font-size:.7rem;font-family:inherit;resize:none;outline:none;background:#fff;min-height:22px;height:22px;overflow:hidden;box-sizing:border-box;}
+.slot-select{width:100%;border:none;border-bottom:1px solid #e8e6e0;padding:.18rem .24rem;font-size:.69rem;font-family:inherit;outline:none;background:#fff;cursor:pointer;min-height:22px;}
+.slot-edit-area:focus,.slot-select:focus{background:#fffbe8;}
+.slot-bar{height:2px;width:100%;}
+
+/* ── Toast ── */
+.toast{position:fixed;bottom:1.5rem;right:1.1rem;background:#3d4a1e;color:#fff;padding:.65rem 1.1rem;border-radius:9px;font-size:.8rem;z-index:999;max-width:420px;cursor:pointer;display:none;line-height:1.4;}
+
+/* ── Responsive ── */
+@media(max-width:768px){
+  .elev-kontroller{padding:.4rem .65rem;gap:.3rem;}
+  #elev-main{padding:.6rem .5rem 3rem;}
+  .uke-plan-grid{display:block!important;min-width:unset!important;border-radius:10px;overflow:hidden;}
+  .dag-col{border-bottom:2px solid var(--kant);}
+  .dag-col:last-child{border-bottom:none;}
+  .dag-col-header{display:block;text-align:left;padding:.5rem .85rem;}
+  .dag-innhold{padding:.35rem .65rem;}
+  .kort-wrap{margin-bottom:.15rem;}
+  .plan-celle.tom{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">🌱 DEMO – Ingen ekte skoledata. Alt lagres lokalt i nettleseren din. &nbsp;·&nbsp; <a href="https://uno.ganddal.net/ukeplan1e.html">← Om Ukeplan1E</a></div>
+
+<!-- Login -->
+<div id="login-wrap">
+  <div class="login-kort">
+    <div class="login-ikon">🌾</div>
+    <h2>Ukeplan 1E</h2>
+    <p>Logg inn for å se ukeplanen</p>
+    <input class="login-felt" id="brukernavn-felt" type="text" placeholder="Brukernavn" autocomplete="username" onkeydown="if(event.key==='Enter')document.getElementById('passord-felt').focus()">
+    <input class="login-felt" id="passord-felt" type="password" placeholder="Passord" autocomplete="current-password" onkeydown="if(event.key==='Enter')loggInn()">
+    <button class="btn-login" onclick="loggInn()">Logg inn</button>
+    <div class="feil" id="feil-melding"></div>
+    <div class="demo-hint">Demo-konto: <strong>Demo</strong> / <strong>Ukeplan1E</strong></div>
+    <a class="tilbake-link" href="https://uno.ganddal.net/ukeplan1e.html">← Tilbake til informasjon om Ukeplan1E</a>
+  </div>
+</div>
+
+<!-- App -->
+<div id="app">
+  <header>
+    <div class="hdr-left">
+      <div class="hdr-titler">
+        <h1 id="header-tittel">Ukeplan</h1>
+        <span class="hdr-sub" id="hdr-sub"></span>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <span class="innlogget-chip" id="innlogget-chip" style="display:none"></span>
+      <button class="hdr-btn" id="logg-ut-btn" onclick="loggUt()" style="display:none">Logg ut</button>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button id="tab-elev" class="aktiv" onclick="byttFane('elev')">📋 Elevside</button>
+    <button id="tab-laerer" onclick="byttFane('laerer')" style="display:none">✏️ Redigering</button>
+  </div>
+
+  <!-- Elevside -->
+  <div id="elev-side">
+    <div class="elev-kontroller">
+      <div class="elev-nav-gruppe">
+        <button class="elev-nav-pil" onclick="navigerUke(-1)" title="Forrige uke">&#x2190;</button>
+        <span class="uke-label" id="uke-label" onclick="aktiverUkeInput()">Uke –</span>
+        <button class="elev-nav-pil" onclick="navigerUke(1)" title="Neste uke">&#x2192;</button>
+      </div>
+      <button class="elev-sek-btn" id="i-dag-btn" onclick="gaaTilDenneUken()">I dag</button>
+      <div class="elev-chip-wrap" id="chip-wrap-parti" style="display:none">
+        <span class="elev-chip-icon">👥</span>
+        <select id="elev-parti-velg" class="elev-chip-select" onchange="byttParti(this.value)"></select>
+        <span class="elev-chip-arrow">›</span>
+      </div>
+      <div class="elev-chip-wrap" id="chip-wrap-gruppe" style="display:none">
+        <span class="elev-chip-icon">🏷️</span>
+        <select id="elev-gruppe-velg" class="elev-chip-select" onchange="byttGruppe(this.value)"></select>
+        <span class="elev-chip-arrow">›</span>
+      </div>
+      <button class="elev-chip-reset" id="chip-nullstill" onclick="nullstillFilter()" style="display:none">↺ Nullstill</button>
+    </div>
+    <div id="elev-main"></div>
+    <div class="sist-oppdatert" id="sist-oppdatert"></div>
+  </div>
+
+  <!-- Lærerside / Redigering -->
+  <div id="laerer-side" style="display:none">
+    <div class="verktolinje">
+      <div class="laerer-nav-gruppe">
+        <button class="laerer-nav-pil" onclick="navigerUkeLaerer(-1)">&#x2190;</button>
+        <span class="laerer-uke-label" id="laerer-uke-label">Uke –</span>
+        <button class="laerer-nav-pil" onclick="navigerUkeLaerer(1)">&#x2192;</button>
+      </div>
+      <button class="pw-btn" onclick="gaaTilDenneUkenGrid()">I dag</button>
+      <button class="lagre-btn" id="lagre-btn" onclick="lagreEndringer()">💾 Lagre</button>
+      <span id="lagre-status" style="font-size:.72rem;color:#a8e06a;font-weight:600;margin-left:.3rem;"></span>
+    </div>
+    <div class="fag-tabs" id="laerer-fag-tabs"></div>
+    <div class="tabell-wrapper">
+      <table class="grid">
+        <thead id="grid-thead"></thead>
+        <tbody id="grid-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" onclick="this.style.display='none'"></div>
+
+<script>
+// ================================================================
+// KONSTANTER
+// ================================================================
+var ALLE_DAGER = ['mandag','tirsdag','onsdag','torsdag','fredag'];
+var DAG_FULLT = {mandag:'Mandag',tirsdag:'Tirsdag',onsdag:'Onsdag',torsdag:'Torsdag',fredag:'Fredag'};
+var DAG_OFFSET = {mandag:0,tirsdag:1,onsdag:2,torsdag:3,fredag:4};
+var FAG_FANER = ['NPT','NNA','YFF'];
+var FAG_FARGER = {NPT:'#6B8C2A', NNA:'#185FA5', YFF:'#A0722A'};
+
+// ================================================================
+// AKTIVITETSPOOLER
+// ================================================================
+var NPT_HOEST = [
+  {a:'Grønnsakshøsting og pakking',   o:'Drivhus kl. 07:30', i:'', l:'Geir Eide'},
+  {a:'Potetoppal og innhøsting',       o:'Åker kl. 08:00',    i:'', l:'Geir Eide'},
+  {a:'Stell og fôring av storfe',      o:'Fjøs kl. 07:30',    i:'', l:'Geir Eide'},
+  {a:'Gjerding og beitepress',         o:'Beite kl. 08:00',   i:'Redskaper hentes fra bod', l:'Geir Eide'},
+  {a:'Slåttonn og høying',             o:'Låve kl. 07:30',    i:'Arbeidstøy påkrevd', l:'Geir Eide'},
+  {a:'Frøinnhøsting og lagring',       o:'Låve kl. 07:45',    i:'', l:'Kari Hole'},
+  {a:'Kompostering og jordforbedring', o:'Kompostplass kl. 08:00', i:'', l:'Kari Hole'},
+  {a:'Maskin og redskapsopplæring',    o:'Maskinhal kl. 07:45', i:'HMS gjennomgang obligatorisk', l:'Geir Eide'},
+  {a:'Traktorøving – grunnleggende',   o:'Innmark kl. 08:00', i:'', l:'Geir Eide'},
+  {a:'Jordarbeiding og pløying',       o:'Innmark kl. 08:00', i:'', l:'Geir Eide'},
+  {a:'Rotgrønnsaker og brassica',      o:'Drivhus kl. 07:45', i:'', l:'Kari Hole'},
+  {a:'Vedlikehold av stall og beite',  o:'Fjøs kl. 07:30',   i:'', l:'Geir Eide'},
+];
+var NPT_VINTER = [
+  {a:'Stell og fôring av storfe',           o:'Fjøs kl. 07:30',    i:'', l:'Geir Eide'},
+  {a:'Melkeproduksjon og kvalitetskontroll',o:'Fjøs kl. 07:30',    i:'', l:'Geir Eide'},
+  {a:'Kalveoppdrett og ungdyrhold',         o:'Kalvebinge kl. 08:00', i:'', l:'Geir Eide'},
+  {a:'Drivhusarbeid og plantestell',        o:'Drivhus kl. 07:45', i:'', l:'Kari Hole'},
+  {a:'Vedlikehold av fjøs og maskiner',     o:'Fjøs kl. 07:30',    i:'', l:'Geir Eide'},
+  {a:'Dyrehelse og sykdomsforebygging',     o:'Fjøs kl. 08:00',    i:'', l:'Kari Hole'},
+  {a:'Fôrplanlegging og næringsanalyse',    o:'Klasserom kl. 08:00', i:'', l:'Kari Hole'},
+  {a:'Stell av sau og lam',                 o:'Sauefjøs kl. 08:00', i:'', l:'Geir Eide'},
+  {a:'Redskapsvedlikehold vinter',          o:'Maskinhal kl. 07:45', i:'', l:'Geir Eide'},
+  {a:'Økonomi og planlegging i landbruk',   o:'Klasserom kl. 08:00', i:'', l:'Lars Austrheim'},
+  {a:'Gjødselplanlegging og jordsmonn',     o:'Klasserom kl. 08:00', i:'', l:'Kari Hole'},
+  {a:'Svinestell og innredning',            o:'Grisebinge kl. 08:00', i:'', l:'Geir Eide'},
+];
+var NPT_VAR = [
+  {a:'Såing og potteplanting',              o:'Drivhus kl. 07:45', i:'', l:'Kari Hole'},
+  {a:'Jordarbeid og gjødsling',             o:'Åker kl. 08:00',    i:'', l:'Geir Eide'},
+  {a:'Lamming og lammestell',               o:'Sauefjøs kl. 07:30', i:'', l:'Geir Eide'},
+  {a:'Beitepreparering og gjødsling',       o:'Beite kl. 08:00',   i:'', l:'Geir Eide'},
+  {a:'Vårplanting i drivhus',               o:'Drivhus kl. 07:45', i:'', l:'Kari Hole'},
+  {a:'Traktorøving – plog og harv',         o:'Innmark kl. 08:00', i:'', l:'Geir Eide'},
+  {a:'Plantevern og ugrasbekjempelse',      o:'Drivhus kl. 08:00', i:'', l:'Kari Hole'},
+  {a:'Stell og fôring – vårrutine',         o:'Fjøs kl. 07:30',    i:'', l:'Geir Eide'},
+  {a:'Presentasjon av årsprosjekt',         o:'Auditorium kl. 08:00', i:'Obligatorisk oppmøte', l:'Lars Austrheim'},
+  {a:'Praktisk eksamen – dyrestell',        o:'Fjøs kl. 07:30',    i:'Karaktergivende', l:'Geir Eide'},
+  {a:'Planteskole og frøjordarbeid',        o:'Drivhus kl. 07:45', i:'', l:'Kari Hole'},
+  {a:'Avslutning og rengjøring av fjøs',    o:'Fjøs kl. 08:00',    i:'', l:'Geir Eide'},
+];
+var NNA_POOL = [
+  {a:'Grunnleggende friluftsliv',           o:'Parkering kl. 08:30', i:'', l:'Lars Austrheim'},
+  {a:'Orientering og kartlesing',           o:'Skole kl. 08:30',     i:'Ta med kompass', l:'Lars Austrheim'},
+  {a:'Klatring – grunnkurs',                o:'Klatrevegg kl. 09:00', i:'', l:'Lars Austrheim'},
+  {a:'Lavvo-oppsett og beredskap',          o:'Parkering kl. 08:30', i:'Sovepose medbringes', l:'Lars Austrheim'},
+  {a:'Fisking og friluftsmatlaging',        o:'Brygge kl. 08:00',    i:'Ta med fiskestang', l:'Lars Austrheim'},
+  {a:'Fugleobservasjon i felt',             o:'Skole kl. 08:30',     i:'Kikkert anbefales', l:'Lars Austrheim'},
+  {a:'Terrengløp og kondisjonstrening',     o:'Parkering kl. 08:30', i:'', l:'Lars Austrheim'},
+  {a:'Kajakkpadling og vannsikkerhet',      o:'Brygge kl. 09:00',    i:'Ta med drakt', l:'Lars Austrheim'},
+  {a:'Overnatting ute og beredskap',        o:'Skole fr. kl. 16:00', i:'Ta med sovepose og matte', l:'Lars Austrheim'},
+  {a:'Snøshoevandring og vinterliv',        o:'Parkering kl. 08:30', i:'Varme klær og ekstra sokker', l:'Lars Austrheim'},
+  {a:'Villmarksmatlaging over bål',         o:'Parkering kl. 08:30', i:'', l:'Lars Austrheim'},
+  {a:'Abseiling og klatreteknikk',          o:'Klatrevegg kl. 09:00', i:'', l:'Lars Austrheim'},
+  {a:'Sporidentifikasjon og naturlæring',   o:'Parkering kl. 08:30', i:'', l:'Lars Austrheim'},
+  {a:'Elvepadling – introduksjon',          o:'Brygge kl. 09:00',    i:'', l:'Lars Austrheim'},
+  {a:'Friluftspresentasjon og avslutning',  o:'Klasserom kl. 08:30', i:'', l:'Lars Austrheim'},
+  {a:'Skitur og vinterkondisjon',           o:'Parkering kl. 08:30', i:'Skiene medbringes', l:'Lars Austrheim'},
+];
+var YFF_POOLS = {
+  'Hund': [
+    {a:'Stell og pleie av hund',            o:'Kennel kl. 08:00', i:'', l:'Kari Hole'},
+    {a:'Grunnleggende lydighetspark',        o:'Treningsplass kl. 08:00', i:'', l:'Kari Hole'},
+    {a:'Adferdslære og hundekjennskap',      o:'Klasserom kl. 08:00', i:'', l:'Kari Hole'},
+    {a:'Agility – introduksjon',             o:'Treningsplass kl. 08:00', i:'', l:'Kari Hole'},
+    {a:'Valpesosialisering og stell',        o:'Kennel kl. 08:00', i:'', l:'Kari Hole'},
+    {a:'Spor og søk i terreng',              o:'Parkering kl. 08:30', i:'', l:'Kari Hole'},
+    {a:'Hundefrisørkurs – praktisk del',     o:'Kennel kl. 08:00', i:'', l:'Kari Hole'},
+    {a:'Utstilling og presentasjon av hund', o:'Kennel kl. 08:00', i:'', l:'Kari Hole'},
+  ],
+  'Friluftsliv': [
+    {a:'Klatring i hall – teknikk',          o:'Klatrevegg kl. 08:00', i:'', l:'Lars Austrheim'},
+    {a:'Kanopadling og sikkerhet',           o:'Brygge kl. 08:30', i:'', l:'Lars Austrheim'},
+    {a:'Sykkeltur i terreng',                o:'Parkering kl. 08:00', i:'Hjelm påkrevd', l:'Lars Austrheim'},
+    {a:'Lavvo-oppsett og friluftsliv',       o:'Parkering kl. 08:00', i:'', l:'Lars Austrheim'},
+    {a:'Kart og kompass i felt',             o:'Parkering kl. 08:30', i:'', l:'Lars Austrheim'},
+    {a:'Vinterovernatting – snøhule',        o:'Parkering kl. 08:00', i:'Vinterutstyr medbringes', l:'Lars Austrheim'},
+    {a:'Turplanlegging og risikovurdering',  o:'Klasserom kl. 08:00', i:'', l:'Lars Austrheim'},
+    {a:'Første hjelp i felt',                o:'Klasserom kl. 08:00', i:'', l:'Lars Austrheim'},
+  ],
+  'Husdyr': [
+    {a:'Melkeprosess og hygiene',            o:'Fjøs kl. 07:30', i:'', l:'Geir Eide'},
+    {a:'Stell av geit og geitemelking',      o:'Sauefjøs kl. 07:30', i:'', l:'Geir Eide'},
+    {a:'Lammestell og fødselshjelp',         o:'Sauefjøs kl. 07:30', i:'', l:'Geir Eide'},
+    {a:'Fôrplanlegging og næringsinnhold',   o:'Klasserom kl. 08:00', i:'', l:'Kari Hole'},
+    {a:'Helsekontroll og sykdomslære',       o:'Fjøs kl. 08:00', i:'', l:'Kari Hole'},
+    {a:'Inseminasjon – teori og praksis',    o:'Fjøs kl. 08:00', i:'', l:'Kari Hole'},
+    {a:'Slakting og kjøttkontroll',          o:'Slakteri kl. 08:00', i:'Verneutstyr medbringes', l:'Geir Eide'},
+    {a:'Husdyrøkonomi og regnskap',          o:'Klasserom kl. 08:00', i:'', l:'Lars Austrheim'},
+  ],
+  'Verksted og maskin': [
+    {a:'Sveising – grunnteknikker',          o:'Verksted kl. 08:00', i:'Verneutstyr påkrevd', l:'Geir Eide'},
+    {a:'Motor og hydraulikk på traktor',     o:'Maskinhal kl. 08:00', i:'', l:'Geir Eide'},
+    {a:'Redskapsvedlikehold og feil',        o:'Maskinhal kl. 08:00', i:'', l:'Geir Eide'},
+    {a:'Traktorkurs – videregående',         o:'Innmark kl. 08:00', i:'', l:'Geir Eide'},
+    {a:'Sikkerhetsopplæring og HMS',         o:'Klasserom kl. 08:00', i:'', l:'Lars Austrheim'},
+    {a:'Maskinoppsett og kalibrering',       o:'Maskinhal kl. 08:00', i:'', l:'Geir Eide'},
+    {a:'Elektrisk anlegg – traktor',         o:'Maskinhal kl. 08:00', i:'', l:'Geir Eide'},
+    {a:'Dokumentasjon og rapportskriving',   o:'Klasserom kl. 08:00', i:'', l:'Lars Austrheim'},
+  ],
+  'Hest': [
+    {a:'Ridning – dressurøvelser',           o:'Ridehall kl. 08:00', i:'', l:'Kari Hole'},
+    {a:'Stell og daglig pleie av hest',      o:'Stall kl. 07:30', i:'', l:'Kari Hole'},
+    {a:'Hovstell og farrierkurs',            o:'Stall kl. 08:00', i:'', l:'Kari Hole'},
+    {a:'Utstyrskjennskap og utstyrsstell',   o:'Stall kl. 08:00', i:'', l:'Kari Hole'},
+    {a:'Longering og friarbeid',             o:'Ridehall kl. 08:00', i:'', l:'Kari Hole'},
+    {a:'Hesteatferd og -psykologi',          o:'Klasserom kl. 08:00', i:'', l:'Lars Austrheim'},
+    {a:'Turridning i terreng',               o:'Stall kl. 08:30', i:'Hjelm og ridehansker', l:'Kari Hole'},
+    {a:'Hestehelse og sykdomslære',          o:'Klasserom kl. 08:00', i:'', l:'Kari Hole'},
+  ]
+};
+
+// ================================================================
+// SKOLEKALENDER
+// ================================================================
+var SKOLE_UKER = [
+  33,34,35,36,37,38,39,
+  41,42,43,
+  44,45,46,47,48,
+  49,50,51,
+  3,4,5,6,
+  7,8,
+  10,11,
+  12,13,
+  16,17,
+  18,19,20,21,
+  22,23,24,25
+];
+var FERIE_UKER = {
+  40:{type:'ferie',beskrivelse:'Høstferie'},
+  52:{type:'ferie',beskrivelse:'Juleferie'},
+  1:{type:'ferie',beskrivelse:'Juleferie'},
+  2:{type:'ferie',beskrivelse:'Juleferie'},
+  9:{type:'ferie',beskrivelse:'Vinterferie'},
+  14:{type:'ferie',beskrivelse:'Påskeferie'},
+  15:{type:'ferie',beskrivelse:'Påskeferie'}
+};
+var SPESIELLE_DAGER = [
+  {uke:'20', dag:'fredag', type:'høytid', beskrivelse:'17. mai – Grunnlovsdagen'}
+];
+
+// ================================================================
+// DATAGENERERING
+// ================================================================
+function sesongForUke(uke) {
+  var u = parseInt(uke);
+  if (u >= 33 && u <= 43) return 'hoest';
+  if (u >= 44 || u <= 8)  return 'vinter';
+  return 'var';
+}
+function genererDemoData() {
+  var grupper = ['Hund','Friluftsliv','Husdyr','Verksted og maskin','Hest'];
+  var nptUker=[], nnaUker=[], yffUker=[];
+  SKOLE_UKER.forEach(function(uke,idx){
+    var us=String(uke), ses=sesongForUke(uke);
+    var nptPool=ses==='hoest'?NPT_HOEST:ses==='vinter'?NPT_VINTER:NPT_VAR;
+    var nptUke={uke:us,ferie:false,ferieNavn:'',ferieEmoji:'',dager:{}};
+    ['mandag','onsdag'].forEach(function(dag,di){
+      nptUke.dager[dag]={};
+      [1,2].forEach(function(p){
+        var item=nptPool[(idx*4+di*2+(p-1))%nptPool.length];
+        var opp=p===1?item.o:item.o.replace('07:30','12:00').replace('08:00','12:30').replace('07:45','12:15');
+        nptUke.dager[dag]['p'+p]={aktivitet:item.a,oppmote:opp,info:item.i,laerer:item.l};
+      });
+    });
+    nptUker.push(nptUke);
+    var nnaUke={uke:us,ferie:false,ferieNavn:'',ferieEmoji:'',dager:{}};
+    var nnaItem=NNA_POOL[idx%NNA_POOL.length];
+    nnaUke.dager['fredag']={nna:{aktivitet:nnaItem.a,oppmote:nnaItem.o,info:nnaItem.i,laerer:nnaItem.l}};
+    nnaUker.push(nnaUke);
+    var yffUke={uke:us,ferie:false,ferieNavn:'',ferieEmoji:'',dager:{}};
+    ['tirsdag','torsdag'].forEach(function(dag,di){
+      yffUke.dager[dag]={};
+      grupper.forEach(function(gr,gi){
+        var pool=YFF_POOLS[gr];
+        var item=pool[(idx*2+di+gi*3)%pool.length];
+        yffUke.dager[dag][gr]={aktivitet:item.a,oppmote:item.o,info:item.i,laerer:item.l};
+      });
+    });
+    yffUker.push(yffUke);
+  });
+  return {npt:{uker:nptUker},nna:{uker:nnaUker},yff:{uker:yffUker}};
+}
+function byggSkolerute() {
+  var sr=[];
+  Object.keys(FERIE_UKER).forEach(function(u){var f=FERIE_UKER[u];sr.push({uke:u,dag:'',type:f.type,beskrivelse:f.beskrivelse});});
+  SPESIELLE_DAGER.forEach(function(s){sr.push({uke:s.uke,dag:s.dag,type:s.type,beskrivelse:s.beskrivelse});});
+  return sr;
+}
+
+// ================================================================
+// APPDATA
+// ================================================================
+var allData = {
+  innstillinger:{skolenavn:'Øksnevad naturbruksskole',klassenavn:'1E',skoleaar:'2025/2026',antallPartier:2,aktiveDager:['mandag','onsdag'],yffGrupper:['Hund','Friluftsliv','Husdyr','Verksted og maskin','Hest'],aktiveFag:['NPT','NNA','YFF']},
+  laerere:[{navn:'Geir Eide',farge:'#3d5010',admin:true,fag:['NPT']},{navn:'Kari Hole',farge:'#7a5c18',admin:false,fag:['NPT','YFF']},{navn:'Lars Austrheim',farge:'#2a4a30',admin:false,fag:['NNA','YFF']}],
+  fag:[{navn:'NPT',type:'standard',grupper:[],dager:['mandag','onsdag']},{navn:'NNA',type:'standard',grupper:[],dager:['fredag']},{navn:'YFF',type:'standard',grupper:['Hund','Friluftsliv','Husdyr','Verksted og maskin','Hest'],dager:['tirsdag','torsdag']}],
+  skolerute:[],
+  plan:{NPT:{uker:[]},NNA:{uker:[]},YFF:{uker:[]},Fellesfag:{uker:[]}}
+};
+var LAGRE_NØKKEL='demo_ukeplan_data';
+var pendingChanges={};
+function lastData(){
+  try{var raw=localStorage.getItem(LAGRE_NØKKEL);if(raw){var saved=JSON.parse(raw);if(saved&&saved.plan){allData=saved;return;}}}catch(e){}
+  var gen=genererDemoData();allData.plan.NPT=gen.npt;allData.plan.NNA=gen.nna;allData.plan.YFF=gen.yff;allData.skolerute=byggSkolerute();lagreDataStille();
+}
+function lagreDataStille(){try{localStorage.setItem(LAGRE_NØKKEL,JSON.stringify(allData));}catch(e){}}
+function getSlot(fag,uke,dag,pk){
+  var p=allData.plan[fag];if(!p)return{aktivitet:'',oppmote:'',info:'',laerer:''};
+  var u=p.uker.find(function(x){return String(x.uke)===String(uke);});
+  if(!u||!u.dager||!u.dager[dag])return{aktivitet:'',oppmote:'',info:'',laerer:''};
+  var s=u.dager[dag][pk];if(!s)return{aktivitet:'',oppmote:'',info:'',laerer:''};
+  return{aktivitet:s.aktivitet||'',oppmote:s.oppmote||'',info:s.info||'',laerer:s.laerer||''};
+}
+function setSlot(fag,uke,dag,pk,data){
+  var p=allData.plan[fag];if(!p)return;
+  var u=p.uker.find(function(x){return String(x.uke)===String(uke);});
+  if(!u){u={uke:String(uke),ferie:false,ferieNavn:'',ferieEmoji:'',dager:{}};p.uker.push(u);}
+  if(!u.dager)u.dager={};if(!u.dager[dag])u.dager[dag]={};u.dager[dag][pk]=data;
+}
+
+// ================================================================
+// UTILS
+// ================================================================
+function cfg(){return allData.innstillinger||{};}
+function partier(){var n=parseInt(cfg().antallPartier)||2;return Array.from({length:n},function(_,i){return 'p'+(i+1);});}
+function yffGrupper(){var f=allData.fag.find(function(f){return f.navn==='YFF';});return f&&f.grupper&&f.grupper.length?f.grupper:cfg().yffGrupper||[];}
+function aktiveDagerForFag(fn){var f=allData.fag.find(function(x){return x.navn===fn;});return f&&f.dager&&f.dager.length?f.dager:cfg().aktiveDager||['mandag','onsdag'];}
+function laererFarge(n){if(!n)return'#888';var l=allData.laerere.find(function(x){return n.toLowerCase().includes(x.navn.toLowerCase());});return l?l.farge:'#888';}
+function escHtml(s){return String(s===null||s===undefined?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function srEmoji(type,besk){var t=(type||'').toLowerCase(),b=(besk||'').toLowerCase();if(t==='ferie'||t==='fri'){if(b.includes('jul'))return'⭐';if(b.includes('paske')||b.includes('påske'))return'🐣';if(b.includes('vinter'))return'❄️';if(b.includes('høst')||b.includes('host'))return'🍂';return'🎉';}if(t==='høytid')return'🇳🇴';return'📅';}
+function erBlokert(uke,dag){var us=String(uke);for(var i=0;i<allData.skolerute.length;i++){var sr=allData.skolerute[i];if(String(sr.uke)!==us)continue;var d=(sr.dag||'').trim().toLowerCase();if(!d)return{blokkert:true,type:sr.type,beskrivelse:sr.beskrivelse};if(d===dag)return{blokkert:true,type:sr.type,beskrivelse:sr.beskrivelse};}return{blokkert:false};}
+function getCurrentISOWeek(){var now=new Date(),d=new Date(Date.UTC(now.getFullYear(),now.getMonth(),now.getDate()));d.setUTCDate(d.getUTCDate()+4-(d.getUTCDay()||7));var ys=new Date(Date.UTC(d.getUTCFullYear(),0,1));return Math.ceil((((d-ys)/86400000)+1)/7);}
+function getVisningsUke(){var now=new Date(),dag=now.getDay(),time=now.getHours();return getCurrentISOWeek()+((dag===5&&time>=16)||dag===6||dag===0?1:0);}
+function ukeStartDato(uke){var uk=parseInt(uke);if(isNaN(uk))return null;var skaar=String(cfg().skoleaar||'');var aar;if(skaar.includes('/')){var d=skaar.split('/');aar=uk>=30?parseInt(d[0]):parseInt(d[1]);}else aar=new Date().getFullYear();var jan4=new Date(aar,0,4);var dow=jan4.getDay()||7;var man=new Date(jan4);man.setDate(jan4.getDate()-dow+1+(uk-1)*7);return man;}
+function dagDato(uke,dk){var man=ukeStartDato(uke);if(!man)return'';var d=new Date(man);d.setDate(man.getDate()+(DAG_OFFSET[dk]||0));var dd=d.getDate(),mm=d.getMonth()+1;return(dd<10?'0'+dd:dd)+'.'+(mm<10?'0'+mm:mm);}
+function alleUker(){var m={};FAG_FANER.forEach(function(fag){var p=allData.plan[fag];if(!p)return;p.uker.forEach(function(u){if(u&&u.uke)m[String(u.uke)]=true;});});allData.skolerute.forEach(function(sr){var u=String(sr.uke);if(!isNaN(parseInt(u)))m[u]=true;});return Object.keys(m).sort(function(a,b){var p=function(s){var n=parseInt(s);return n>=30?n:n+100;};return p(a)-p(b);});}
+function fagEmoji(n){var nL=(n||'').toLowerCase();if(nL==='npt')return'🚜';if(nL==='nna')return'⛺';if(nL==='yff')return'👷';return'📚';}
+function visToast(msg,feil){var t=document.getElementById('toast');t.textContent=msg;t.style.background=feil?'#8b2020':'#3d4a1e';t.style.display='block';setTimeout(function(){t.style.display='none';},feil?6000:3500);}
+
+// ================================================================
+// AUTH
+// ================================================================
+var innloggetSom=null;
+function loggInn(){
+  var brnavn=document.getElementById('brukernavn-felt').value.trim();
+  var passord=document.getElementById('passord-felt').value;
+  if(brnavn.toLowerCase()!=='demo'||passord!=='Ukeplan1E'){document.getElementById('feil-melding').textContent='Feil brukernavn eller passord.';return;}
+  innloggetSom='Demo';
+  try{sessionStorage.setItem('demo_innlogget','1');}catch(e){}
+  visApp();
+}
+function loggUt(){
+  innloggetSom=null;
+  try{sessionStorage.removeItem('demo_innlogget');}catch(e){}
+  document.getElementById('app').style.display='none';
+  document.getElementById('login-wrap').style.display='flex';
+  document.getElementById('passord-felt').value='';
+  document.getElementById('feil-melding').textContent='';
+}
+function visApp(){
+  document.getElementById('login-wrap').style.display='none';
+  document.getElementById('app').style.display='';
+  var c=cfg();
+  document.getElementById('header-tittel').textContent='Ukeplan for klasse – '+c.klassenavn;
+  document.getElementById('hdr-sub').textContent=c.skolenavn+' · '+c.skoleaar;
+  document.getElementById('innlogget-chip').textContent=innloggetSom;
+  document.getElementById('innlogget-chip').style.display='';
+  document.getElementById('logg-ut-btn').style.display='';
+  document.getElementById('tab-laerer').style.display='';
+  gaaTilDenneUken();
+  byggFilterChips();
+}
+
+// ================================================================
+// FILTER
+// ================================================================
+var aktivtParti='',aktivtYffGruppe='';
+function byggFilterChips(){
+  var ps=partier(),yg=yffGrupper();
+  var pSel=document.getElementById('elev-parti-velg');
+  pSel.innerHTML='<option value="">NPT parti…</option>'+ps.map(function(p){return'<option value="'+p+'">Parti '+p.slice(1)+'</option>';}).join('');
+  var gSel=document.getElementById('elev-gruppe-velg');
+  gSel.innerHTML='<option value="">YFF gruppe…</option>'+yg.map(function(g){return'<option value="'+escHtml(g)+'">'+escHtml(g)+'</option>';}).join('');
+  document.getElementById('chip-wrap-parti').style.display=ps.length>1?'':'none';
+  document.getElementById('chip-wrap-gruppe').style.display=yg.length>1?'':'none';
+  oppdaterNullstill();
+}
+function byttParti(p){aktivtParti=p;document.getElementById('chip-wrap-parti').classList.toggle('aktiv',!!p);oppdaterNullstill();renderElev();}
+function byttGruppe(g){aktivtYffGruppe=g;document.getElementById('chip-wrap-gruppe').classList.toggle('aktiv',!!g);oppdaterNullstill();renderElev();}
+function nullstillFilter(){aktivtParti='';aktivtYffGruppe='';document.getElementById('elev-parti-velg').value='';document.getElementById('elev-gruppe-velg').value='';document.getElementById('chip-wrap-parti').classList.remove('aktiv');document.getElementById('chip-wrap-gruppe').classList.remove('aktiv');oppdaterNullstill();renderElev();}
+function oppdaterNullstill(){document.getElementById('chip-nullstill').style.display=(aktivtParti||aktivtYffGruppe)?'':'none';}
+
+// ================================================================
+// NAVIGASJON – ELEVSIDE
+// ================================================================
+var aktivUkeIdx=0;
+function gaaTilDenneUken(){var vis=String(getVisningsUke()),alle=alleUker(),idx=alle.indexOf(vis);if(idx<0){for(var i=0;i<alle.length;i++){if(parseInt(alle[i])>=parseInt(vis)){idx=i;break;}}}aktivUkeIdx=idx>=0?idx:0;renderElev();}
+function navigerUke(r){var alle=alleUker();aktivUkeIdx=Math.max(0,Math.min(alle.length-1,aktivUkeIdx+r));renderElev();}
+function aktiverUkeInput(){var lbl=document.getElementById('uke-label'),alle=alleUker(),gjeldende=alle[aktivUkeIdx]||'';lbl.innerHTML='<input class="uke-input" id="uke-input-felt" type="number" min="1" max="53" value="'+gjeldende+'">';var inp=document.getElementById('uke-input-felt');inp.focus();inp.select();inp.onblur=function(){gaaTilUkeNummer(this.value);};inp.onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();this.blur();}if(e.key==='Escape')renderElev();};}
+function gaaTilUkeNummer(nr){var alle=alleUker(),idx=alle.indexOf(String(parseInt(nr)));if(idx>=0){aktivUkeIdx=idx;renderElev();}else{visToast('Uke '+nr+' finnes ikke.',true);renderElev();}}
+
+// ================================================================
+// RENDER – ELEVSIDE
+// ================================================================
+function renderElev(){
+  var alle=alleUker();
+  if(!alle.length){document.getElementById('elev-main').innerHTML='<p class="ingen-data">Ingen data.</p>';document.getElementById('uke-label').textContent='Uke –';return;}
+  var ukenummer=alle[aktivUkeIdx];
+  document.getElementById('uke-label').textContent='Uke '+ukenummer;
+  var iDagBtn=document.getElementById('i-dag-btn');
+  if(iDagBtn)iDagBtn.classList.toggle('aktiv',String(ukenummer)===String(getVisningsUke()));
+  var html='';
+  allData.skolerute.forEach(function(sr){if(String(sr.uke)!==ukenummer||sr.dag)return;html+='<div class="ferie-banner">'+srEmoji(sr.type,sr.beskrivelse)+' '+escHtml(sr.beskrivelse)+'</div>';});
+  var alleRader=[];
+  FAG_FANER.forEach(function(fagNavn){
+    var fag=allData.fag.find(function(f){return f.navn===fagNavn;})||{navn:fagNavn,type:'standard',grupper:[],dager:[]};
+    var erYFF=fagNavn==='YFF',erNNA=fagNavn==='NNA';
+    var grupper=erYFF?(aktivtYffGruppe?[aktivtYffGruppe]:yffGrupper()):erNNA?['nna']:(aktivtParti?[aktivtParti]:partier());
+    grupper.forEach(function(pk){
+      var harData=ALLE_DAGER.some(function(dk){var s=getSlot(fagNavn,ukenummer,dk,pk);return s.aktivitet||s.oppmote||s.laerer;});
+      if(harData)alleRader.push({fagNavn:fagNavn,pk:pk,erYFF:erYFF,erNNA:erNNA});
+    });
+  });
+  if(alleRader.length>0||html.length>0){
+    html+='<div class="elev-vkeplan"><div class="uke-plan-grid" style="display:grid;grid-template-columns:repeat(5,1fr);min-width:640px;align-items:start;">';
+    ALLE_DAGER.forEach(function(dk){
+      html+='<div class="dag-col">';
+      var dato=dagDato(ukenummer,dk);
+      html+='<div class="dag-col-header">'+DAG_FULLT[dk]+(dato?'<div class="dato">'+dato+'</div>':'')+'</div>';
+      html+='<div class="dag-innhold">';
+      var bl=erBlokert(ukenummer,dk);
+      if(bl.blokkert){html+='<div class="plan-celle ferie-celle">'+srEmoji(bl.type,bl.beskrivelse)+'<span style="font-size:.67rem;font-weight:600;margin-top:.15rem;">'+escHtml(bl.beskrivelse)+'</span></div>';html+='</div></div>';return;}
+      var harNoe=false;
+      alleRader.forEach(function(rad){
+        var slot=getSlot(rad.fagNavn,ukenummer,dk,rad.pk);
+        if(!slot.aktivitet&&!slot.oppmote&&!slot.laerer)return;
+        harNoe=true;
+        var farge=FAG_FARGER[rad.fagNavn]||'#888',lf=laererFarge(slot.laerer)||farge;
+        var pkLbl=rad.erNNA?'':(rad.erYFF?rad.pk:('P'+rad.pk.slice(1)));
+        html+='<div class="kort-wrap"><div class="kort-bar" style="background:'+farge+'"></div><div class="kort-innhold"><div class="kort-meta">';
+        html+='<span class="kort-fag" style="color:'+farge+'">'+fagEmoji(rad.fagNavn)+' '+escHtml(rad.fagNavn)+(pkLbl?'<span style="color:var(--dempet2);font-weight:400;"> · '+escHtml(pkLbl)+'</span>':'')+'</span>';
+        if(slot.laerer)html+='<span class="laerer-chip" style="background:'+lf+'">'+escHtml(slot.laerer)+'</span>';
+        html+='</div>';
+        if(slot.aktivitet)html+='<div class="akt">'+escHtml(slot.aktivitet)+'</div>';
+        if(slot.oppmote)html+='<div class="opp">'+escHtml(slot.oppmote)+'</div>';
+        if(slot.info)html+='<div class="inf">'+escHtml(slot.info)+'</div>';
+        html+='</div></div>';
+      });
+      if(!harNoe)html+='<div class="plan-celle tom"></div>';
+      html+='</div></div>';
+    });
+    html+='</div></div>';
+  }else{html+='<p class="ingen-data">Ingen planlagte aktiviteter denne uken.</p>';}
+  document.getElementById('elev-main').innerHTML=html;
+  var na=new Date().toLocaleTimeString('no',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('sist-oppdatert').textContent='Sist oppdatert: '+na;
+}
+
+// ================================================================
+// NAVIGASJON + RENDER – LÆRERSIDE
+// ================================================================
+var aktivtFagLaerer='NPT',laererUkeIdx=0;
+function navigerUkeLaerer(r){var alle=alleUker();laererUkeIdx=Math.max(0,Math.min(alle.length-1,laererUkeIdx+r));renderGrid();}
+function gaaTilDenneUkenGrid(){var vis=String(getVisningsUke()),alle=alleUker(),idx=alle.indexOf(vis);if(idx<0){for(var i=0;i<alle.length;i++){if(parseInt(alle[i])>=parseInt(vis)){idx=i;break;}}}laererUkeIdx=idx>=0?idx:0;renderGrid();}
+function byttFagLaerer(fag){aktivtFagLaerer=fag;pendingChanges={};passivLagreBtn();byggFagTabs();renderGrid();}
+function aktivLagreBtn(){document.getElementById('lagre-btn').classList.add('aktiv');}
+function passivLagreBtn(){document.getElementById('lagre-btn').classList.remove('aktiv');}
+function spor(nk,felt,verdi){if(!pendingChanges[nk])pendingChanges[nk]={};pendingChanges[nk][felt]=verdi;aktivLagreBtn();}
+function byggFagTabs(){
+  var tabs=document.getElementById('laerer-fag-tabs');tabs.innerHTML='';
+  FAG_FANER.forEach(function(fag){var btn=document.createElement('button');btn.className=fag===aktivtFagLaerer?'aktiv':'';btn.textContent=fagEmoji(fag)+' '+fag;btn.onclick=function(){byttFagLaerer(fag);};tabs.appendChild(btn);});
+}
+function renderGrid(){
+  var fag=aktivtFagLaerer,alle=alleUker();
+  var ukenummer=alle[laererUkeIdx]||alle[0];
+  document.getElementById('laerer-uke-label').textContent='Uke '+(ukenummer||'–');
+  var fraIdx=Math.max(0,laererUkeIdx-2),tilIdx=Math.min(alle.length-1,fraIdx+4);
+  var visUker=alle.slice(fraIdx,tilIdx+1);
+  var erNNA=fag==='NNA',erYFF=fag==='YFF';
+  var dager=aktiveDagerForFag(fag);
+  var grupper=erNNA?['nna']:erYFF?yffGrupper():partier();
+  var laererNavn=allData.laerere.map(function(l){return l.navn;});
+  document.getElementById('grid-thead').innerHTML='<tr><th>Uke/Dag</th><th>'+(erNNA?'':erYFF?'Gruppe':'Parti')+'</th><th class="col-akt">Aktivitet</th><th class="col-opp">Oppmøte</th><th class="col-info">Info</th><th class="col-laer">Lærer</th></tr>';
+  var html='';
+  visUker.forEach(function(uke){
+    var ferieEntry=allData.skolerute.find(function(sr){return String(sr.uke)===uke&&!sr.dag;});
+    html+='<tr class="uke-hdr"><td colspan="6">Uke '+uke+(ukenummer===uke?' ◀':'')+'</td></tr>';
+    if(ferieEntry){html+='<tr class="ferie-rad"><td colspan="6">'+srEmoji(ferieEntry.type,ferieEntry.beskrivelse)+' '+escHtml(ferieEntry.beskrivelse)+'</td></tr>';return;}
+    dager.forEach(function(dag,di){
+      grupper.forEach(function(pk,pi){
+        var nk=uke+'|'+dag+'|'+pk,slot=getSlot(fag,uke,dag,pk),pc=pendingChanges[nk]||{};
+        var akt=pc.aktivitet!==undefined?pc.aktivitet:slot.aktivitet;
+        var opp=pc.oppmote!==undefined?pc.oppmote:slot.oppmote;
+        var inf=pc.info!==undefined?pc.info:slot.info;
+        var lae=pc.laerer!==undefined?pc.laerer:slot.laerer;
+        var barFarge=FAG_FARGER[fag]||'#888';
+        html+='<tr class="slot-rad-data">';
+        html+='<td class="dag-celle">'+(pi===0?DAG_FULLT[dag]:'')+'</td>';
+        html+='<td class="parti-celle" style="color:'+barFarge+';">'+(erNNA?'':erYFF?pk:('P'+pk.slice(1)))+'</td>';
+        html+='<td class="col-akt"><div class="slot-bar" style="background:'+barFarge+'"></div><textarea class="slot-edit-area" data-nk="'+escHtml(nk)+'" data-felt="aktivitet" oninput="spor(this.dataset.nk,this.dataset.felt,this.value);autoGrow(this)">'+escHtml(akt)+'</textarea></td>';
+        html+='<td class="col-opp"><textarea class="slot-edit-area" data-nk="'+escHtml(nk)+'" data-felt="oppmote" oninput="spor(this.dataset.nk,this.dataset.felt,this.value);autoGrow(this)">'+escHtml(opp)+'</textarea></td>';
+        html+='<td class="col-info"><textarea class="slot-edit-area" data-nk="'+escHtml(nk)+'" data-felt="info" oninput="spor(this.dataset.nk,this.dataset.felt,this.value);autoGrow(this)">'+escHtml(inf)+'</textarea></td>';
+        html+='<td class="col-laer"><select class="slot-select" data-nk="'+escHtml(nk)+'" data-felt="laerer" onchange="spor(this.dataset.nk,this.dataset.felt,this.value)"><option value=""></option>';
+        laererNavn.forEach(function(n){html+='<option value="'+escHtml(n)+'"'+(lae===n?' selected':'')+'>'+escHtml(n)+'</option>';});
+        html+='</select></td></tr>';
+      });
+    });
+  });
+  document.getElementById('grid-body').innerHTML=html;
+  document.querySelectorAll('.slot-edit-area').forEach(function(ta){autoGrow(ta);});
+}
+function autoGrow(ta){ta.style.height='22px';if(ta.scrollHeight>24)ta.style.height=ta.scrollHeight+'px';}
+function lagreEndringer(){
+  var btn=document.getElementById('lagre-btn');if(!btn.classList.contains('aktiv'))return;
+  Object.keys(pendingChanges).forEach(function(nk){
+    var d=nk.split('|'),uke=d[0],dag=d[1],pk=d[2],existing=getSlot(aktivtFagLaerer,uke,dag,pk);
+    setSlot(aktivtFagLaerer,uke,dag,pk,{aktivitet:pendingChanges[nk].aktivitet!==undefined?pendingChanges[nk].aktivitet:existing.aktivitet,oppmote:pendingChanges[nk].oppmote!==undefined?pendingChanges[nk].oppmote:existing.oppmote,info:pendingChanges[nk].info!==undefined?pendingChanges[nk].info:existing.info,laerer:pendingChanges[nk].laerer!==undefined?pendingChanges[nk].laerer:existing.laerer});
+  });
+  lagreDataStille();pendingChanges={};passivLagreBtn();
+  var el=document.getElementById('lagre-status');el.textContent='✅ Lagret';setTimeout(function(){el.textContent='';},3000);
+  visToast('Endringer lagret i nettleseren!');
+}
+
+// ================================================================
+// FANESKIFT
+// ================================================================
+function byttFane(fane){
+  document.getElementById('elev-side').style.display=fane==='elev'?'':'none';
+  document.getElementById('laerer-side').style.display=fane==='laerer'?'':'none';
+  document.getElementById('tab-elev').classList.toggle('aktiv',fane==='elev');
+  document.getElementById('tab-laerer').classList.toggle('aktiv',fane==='laerer');
+  if(fane==='laerer'){byggFagTabs();gaaTilDenneUkenGrid();}else{renderElev();}
+}
+
+// ================================================================
+// INIT
+// ================================================================
+window.onload=function(){
+  lastData();
+  try{if(sessionStorage.getItem('demo_innlogget')==='1'){innloggetSom='Demo';visApp();return;}}catch(e){}
+  document.getElementById('brukernavn-felt').focus();
+};
+</script>
+</body>
+</html>
