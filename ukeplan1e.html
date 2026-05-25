@@ -35,6 +35,7 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -82,8 +83,8 @@
 
   /* ── HERO ── */
   .hero {
-    background: linear-gradient(155deg, #150f00 0%, #221800 55%, #1a1200 100%);
-    color: var(--text);
+    background: linear-gradient(160deg, #0d0d0d 0%, #181818 60%, #111111 100%);
+    color: #FAF7F2;
     padding: 5rem 2rem 4.5rem;
     text-align: center;
     position: relative;
@@ -93,9 +94,15 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 60% 40%, rgba(212,130,10,0.2) 0%, transparent 65%);
+    background: radial-gradient(ellipse at 60% 40%, rgba(212,130,10,0.14) 0%, transparent 65%);
     pointer-events: none;
   }
+  .hero .btn-sek {
+    background: rgba(255,255,255,0.10);
+    color: #FAF7F2;
+    border-color: rgba(255,255,255,0.25);
+  }
+  .hero .btn-sek:hover { background: rgba(255,255,255,0.18); }
   .hero-badge {
     display: inline-block;
     background: rgba(212,130,10,0.18);
