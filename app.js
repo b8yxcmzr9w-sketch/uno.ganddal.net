@@ -96,7 +96,7 @@ const formFields = document.querySelectorAll('#contactForm input, #contactForm s
 
 function updateDogMood() {
   const filled = [...formFields].every(f => f.value.trim() !== '');
-  contactDog.src = filled ? 'img/btommel.png' : 'img/btenke.png';
+  contactDog.src = filled ? 'img/sbligger.png' : 'img/sbsitte.png';
 }
 
 formFields.forEach(f => {
@@ -149,7 +149,7 @@ contactForm.addEventListener('submit', async e => {
 function showSuccess() {
   contactForm.style.display = 'none';
   formSuccess.hidden = false;
-  if (contactDog) contactDog.src = 'img/bvinke.png';
+  if (contactDog) contactDog.src = 'img/sbligger.png';
 }
 
 /* ── Forhåndsvelg i kontaktskjema ved klikk på produkt-knapper ── */
