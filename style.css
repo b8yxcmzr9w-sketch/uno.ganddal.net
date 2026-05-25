@@ -646,7 +646,7 @@ h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
 .footer-logo-wrap {
   width: 30px; height: 30px;
 }
-.footer-logo-wrap img { width: 30px; height: 30px; object-fit: contain; }
+.footer-logo-wrap img { width: 30px; height: 30px; object-fit: contain; filter: brightness(0) invert(1); }
 .footer-copy { color: var(--text-muted); font-size: .83rem; }
 .footer-nav  { display: flex; gap: 22px; }
 .footer-nav a { color: var(--text-muted); font-size: .83rem; transition: color .2s; }
