@@ -9,24 +9,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* Dark amber theme – matching uno.ganddal.net */
-    --bg: #111111;
-    --bg-alt: #181818;
-    --bg-card: #272727;
-    --text: #FAF7F2;
-    --text-muted: #888888;
+    /* Light amber theme */
+    --bg: #FAFAF8;
+    --bg-alt: #F4F1EC;
+    --bg-card: #FFFFFF;
+    --text: #1A1A1A;
+    --text-muted: #666666;
     --accent: #D4820A;
-    --accent-lt: #F5A623;
-    --accent-glow: rgba(212,130,10,0.14);
-    --border: rgba(255,255,255,0.08);
+    --accent-lt: #E8940C;
+    --accent-glow: rgba(212,130,10,0.12);
+    --border: rgba(0,0,0,0.08);
     --radius: 18px;
     --radius-sm: 10px;
-    --shadow: 0 4px 24px rgba(0,0,0,0.45);
-    --shadow-sm: 0 2px 10px rgba(0,0,0,0.3);
-    /* Legacy aliases – used by inline styles in the markup */
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    --shadow-sm: 0 2px 10px rgba(0,0,0,0.05);
+    /* Legacy aliases */
     --groen: var(--accent);
     --groen-mork: #1c1c1c;
-    --groen-lys: rgba(212,130,10,0.13);
+    --groen-lys: rgba(212,130,10,0.10);
     --groen-lys2: var(--bg-alt);
     --hvit: var(--bg);
     --tekst: var(--text);
@@ -47,7 +47,7 @@
   nav {
     position: sticky;
     top: 0;
-    background: rgba(17,17,17,0.92);
+    background: rgba(250,250,248,0.94);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     padding: .9rem 2rem;
@@ -56,7 +56,7 @@
     justify-content: space-between;
     z-index: 100;
     border-bottom: 1px solid var(--border);
-    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   }
   .nav-logo {
     color: var(--text);
@@ -318,7 +318,7 @@
     font-weight: 600;
   }
   .mock-innhold {
-    background: #1e1e1e;
+    background: #F9F9F7;
     padding: 1rem;
   }
   .mock-rad {
@@ -327,8 +327,8 @@
     margin-bottom: .5rem;
   }
   .mock-celle {
-    background: #2a2a2a;
-    border: 1px solid var(--border);
+    background: #FFFFFF;
+    border: 1px solid rgba(0,0,0,0.09);
     border-radius: 6px;
     padding: .35rem .6rem;
     font-size: .7rem;
@@ -336,15 +336,15 @@
     color: var(--text);
   }
   .mock-celle.header {
-    background: rgba(212,130,10,0.18);
+    background: rgba(212,130,10,0.10);
     font-weight: 700;
-    color: var(--accent-lt);
+    color: var(--accent);
     font-size: .65rem;
   }
   .mock-celle.aktiv {
     border-color: var(--accent);
-    background: rgba(212,130,10,0.18);
-    color: var(--accent-lt);
+    background: rgba(212,130,10,0.10);
+    color: var(--accent);
     font-weight: 600;
   }
 
@@ -356,8 +356,8 @@
     flex-wrap: wrap;
   }
   .fane-chip {
-    background: #2a2a2a;
-    border: 1px solid var(--border);
+    background: #EFEFEC;
+    border: 1px solid rgba(0,0,0,0.09);
     border-radius: 20px;
     padding: .28rem .7rem;
     font-size: .72rem;
@@ -503,7 +503,7 @@
   .form-gruppe input,
   .form-gruppe textarea {
     background: var(--bg-card);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(0,0,0,0.14);
     border-radius: var(--radius-sm);
     color: var(--text);
     font-family: 'Inter', sans-serif;
@@ -514,7 +514,7 @@
     resize: vertical;
   }
   .form-gruppe input::placeholder,
-  .form-gruppe textarea::placeholder { color: rgba(250,247,242,.28); }
+  .form-gruppe textarea::placeholder { color: rgba(0,0,0,0.28); }
   .form-gruppe input:focus,
   .form-gruppe textarea:focus {
     border-color: var(--accent);
@@ -554,8 +554,8 @@
 
   /* ── FOOTER ── */
   footer {
-    background: #0d0d0d;
-    color: rgba(250,247,242,.35);
+    background: var(--bg-alt);
+    color: var(--text-muted);
     text-align: center;
     padding: 1.4rem;
     font-size: .74rem;
@@ -761,7 +761,7 @@
           <div style="font-size:.75rem;color:var(--text-muted);margin-bottom:.3rem;">Ditt navn</div>
           <div style="background:rgba(212,130,10,0.13);border:1px solid rgba(212,130,10,0.3);border-radius:6px;padding:.45rem .7rem;font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:.7rem;">Kontaktlærer</div>
           <div style="font-size:.75rem;color:var(--text-muted);margin-bottom:.3rem;">Passord</div>
-          <div style="background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:6px;padding:.45rem .7rem;font-size:.82rem;color:var(--text-muted);margin-bottom:.9rem;">••••••••</div>
+          <div style="background:var(--bg-alt);border:1px solid var(--border);border-radius:6px;padding:.45rem .7rem;font-size:.82rem;color:var(--text-muted);margin-bottom:.9rem;">••••••••</div>
           <div style="background:var(--groen);color:#fff;border-radius:8px;padding:.5rem;text-align:center;font-size:.82rem;font-weight:700;">Logg inn</div>
         </div>
         <div style="font-size:.72rem;color:var(--dempet);text-align:center;">🔒 Kun lærere med passord kan redigere</div>
@@ -942,7 +942,7 @@
 
 <!-- FOOTER -->
 <footer>
-  © Geddi · <a href="https://uno.ganddal.net" style="color:inherit;">uno.ganddal.net</a>
+  © Geddi · <a href="https://uno.ganddal.net" style="color:var(--accent);">uno.ganddal.net</a>
 </footer>
 
 </body>
