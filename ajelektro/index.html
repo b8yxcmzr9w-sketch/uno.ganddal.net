@@ -263,8 +263,13 @@
     }
 
     @media (max-width: 860px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
-      .hero-visual { display: none; }
+      .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+      .hero-visual { order: -1; }
+      .hero-photo-wrap, .hero-stat-row { display: none; }
+      .hero-logo-large {
+        width: 140px; height: 140px;
+        margin: 0 auto;
+      }
     }
 
     /* ===== SECTION HEADER ===== */
