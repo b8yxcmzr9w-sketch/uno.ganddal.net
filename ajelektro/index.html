@@ -14,7 +14,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800;900&family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     /* ===== RESET & BASE ===== */
@@ -45,10 +45,10 @@
       overflow-x: hidden;
     }
 
-    h1, h2, h3 { font-family: 'Syne', sans-serif; line-height: 1.15; }
-    h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); font-weight: 800; }
-    h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; }
-    h3 { font-size: 1.2rem; font-weight: 700; }
+    h1, h2, h3 { font-family: 'Nunito', sans-serif; line-height: 1.15; }
+    h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); font-weight: 900; }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; }
+    h3 { font-size: 1.2rem; font-weight: 800; }
 
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
@@ -96,7 +96,8 @@
     }
     .nav-logo {
       display: flex; align-items: center; gap: 10px;
-      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.25rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
       color: var(--text); flex-shrink: 0;
     }
     .nav-logo-img {
@@ -188,7 +189,8 @@
       padding: 24px;
     }
     .hero-stat-num {
-      font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 700;
+      letter-spacing: 0.04em;
       color: var(--yellow);
     }
     .hero-stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
@@ -226,7 +228,8 @@
       position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%);
       background: var(--yellow); color: #0d0f14;
       padding: 10px 20px; border-radius: 100px;
-      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.95rem;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
       white-space: nowrap;
       box-shadow: 0 8px 24px rgba(232,160,32,0.4);
     }
@@ -241,8 +244,9 @@
       display: inline-block;
       background: var(--yellow-glow); color: var(--yellow);
       border: 1px solid rgba(245,197,24,0.25);
-      padding: 4px 12px; border-radius: 100px;
-      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 100px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
       margin-bottom: 12px;
     }
     .section-header { text-align: center; margin-bottom: 56px; }
@@ -338,7 +342,8 @@
       border-radius: var(--radius); padding: 32px 24px;
     }
     .step-num {
-      font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 2.2rem; font-weight: 700;
+      letter-spacing: 0.05em;
       color: var(--yellow); margin-bottom: 12px;
     }
     .step h3 { margin-bottom: 8px; }
@@ -433,7 +438,8 @@
     }
     .footer-brand {
       display: flex; align-items: center; gap: 10px;
-      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.15rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
     }
     .footer-brand-logo {
       width: 36px; height: 36px; flex-shrink: 0;
@@ -470,7 +476,7 @@
       border-left: 4px solid var(--yellow);
       border-radius: var(--radius);
       padding: 36px 40px;
-      font-family: 'Syne', sans-serif;
+      font-family: 'Nunito', sans-serif;
       font-size: clamp(1.1rem, 2.5vw, 1.35rem);
       font-weight: 600;
       line-height: 1.5;
