@@ -264,18 +264,19 @@
 
     @media (max-width: 860px) {
       .hero-inner {
-        grid-template-columns: 1fr 130px;
-        gap: 20px;
-        align-items: center;
+        grid-template-columns: 1fr 120px;
+        gap: 16px;
+        align-items: start;
       }
       .hero-photo-wrap, .hero-stat-row { display: none; }
+      .hero-visual { padding-top: 6px; }
       .hero-logo-large {
-        width: 120px; height: 120px;
+        width: 115px; height: 115px;
         margin: 0;
       }
     }
     @media (max-width: 420px) {
-      .hero-inner { grid-template-columns: 1fr 100px; }
+      .hero-inner { grid-template-columns: 1fr 96px; }
       .hero-logo-large { width: 90px; height: 90px; }
     }
 
