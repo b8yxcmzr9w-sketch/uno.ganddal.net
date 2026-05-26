@@ -21,9 +21,10 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --yellow: #F5C518;
-      --yellow-dark: #d4a800;
-      --yellow-glow: rgba(245,197,24,0.18);
+      --yellow: #E8A020;
+      --yellow-dark: #c98610;
+      --yellow-glow: rgba(232,160,32,0.16);
+      --logo-bg: #3a3a3a;
       --bg: #0d0f14;
       --bg-card: #13161e;
       --bg-card2: #191c26;
@@ -98,12 +99,10 @@
       font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem;
       color: var(--text); flex-shrink: 0;
     }
-    .nav-logo-bolt {
-      width: 34px; height: 34px;
-      background: var(--yellow); border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem; line-height: 1;
+    .nav-logo-img {
+      width: 40px; height: 40px; flex-shrink: 0;
     }
+    .nav-logo-img svg { width: 100%; height: 100%; }
     .nav-links {
       display: flex; list-style: none; gap: 4px; margin-left: auto;
     }
@@ -195,6 +194,13 @@
     .hero-trust-icon { font-size: 2rem; }
     .hero-trust-text strong { display: block; font-size: 0.95rem; }
     .hero-trust-text span { font-size: 0.82rem; color: var(--text-muted); }
+
+    .hero-logo-large {
+      width: 100%; max-width: 200px;
+      margin: 0 auto 8px;
+      filter: drop-shadow(0 16px 48px rgba(232,160,32,0.25));
+    }
+    .hero-logo-large svg { width: 100%; height: auto; border-radius: 20px; }
 
     @media (max-width: 860px) {
       .hero-inner { grid-template-columns: 1fr; gap: 48px; }
@@ -395,11 +401,10 @@
       display: flex; align-items: center; gap: 10px;
       font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
     }
-    .footer-brand-bolt {
-      width: 30px; height: 30px; background: var(--yellow);
-      border-radius: 6px; display: flex; align-items: center; justify-content: center;
-      font-size: 1rem;
+    .footer-brand-logo {
+      width: 36px; height: 36px; flex-shrink: 0;
     }
+    .footer-brand-logo svg { width: 100%; height: 100%; }
     .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
     .footer-links a { font-size: 0.9rem; color: var(--text-muted); transition: color 0.2s; }
     .footer-links a:hover { color: var(--text); }
@@ -464,7 +469,14 @@
   <nav class="nav" id="nav">
     <div class="nav-inner">
       <a href="#topp" class="nav-logo">
-        <div class="nav-logo-bolt">⚡</div>
+        <div class="nav-logo-img">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AJ Elektro logo">
+            <rect width="100" height="100" rx="12" fill="#3a3a3a"/>
+            <text x="6" y="74" font-family="Arial Black, sans-serif" font-weight="900" font-size="62" fill="#E8A020">AJ</text>
+            <text x="78" y="72" font-family="Arial, sans-serif" font-weight="700" font-size="11" fill="#E8A020"
+              transform="rotate(-90 78 72)" text-anchor="middle" letter-spacing="1">ELEKTRO</text>
+          </svg>
+        </div>
         <span>AJ Elektro</span>
       </a>
       <ul class="nav-links" id="navLinks">
@@ -487,7 +499,7 @@
       <div class="hero-text">
         <div class="hero-badge">
           <span class="hero-badge-dot"></span>
-          Godkjent elektriker – Stavanger, Sandnes og Jæren
+          Elektriker i Stavanger, Sandnes og Jæren siden 2012
         </div>
         <h1>Gode<br><span class="accent">greier.</span></h1>
         <p class="hero-sub">
@@ -500,6 +512,14 @@
       </div>
 
       <div class="hero-visual">
+        <div class="hero-logo-large">
+          <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AJ Elektro">
+            <rect width="300" height="300" rx="28" fill="#3a3a3a"/>
+            <text x="14" y="224" font-family="Arial Black, sans-serif" font-weight="900" font-size="192" fill="#E8A020">AJ</text>
+            <text x="236" y="218" font-family="Arial, sans-serif" font-weight="700" font-size="30" fill="#E8A020"
+              transform="rotate(-90 236 218)" text-anchor="middle" letter-spacing="3">ELEKTRO</text>
+          </svg>
+        </div>
         <div class="hero-stat-row">
           <div class="hero-stat">
             <div class="hero-stat-num">2012</div>
@@ -770,7 +790,14 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <div class="footer-brand-bolt">⚡</div>
+        <div class="footer-brand-logo">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="100" height="100" rx="12" fill="#3a3a3a"/>
+            <text x="6" y="74" font-family="Arial Black, sans-serif" font-weight="900" font-size="62" fill="#E8A020">AJ</text>
+            <text x="78" y="72" font-family="Arial, sans-serif" font-weight="700" font-size="11" fill="#E8A020"
+              transform="rotate(-90 78 72)" text-anchor="middle" letter-spacing="1">ELEKTRO</text>
+          </svg>
+        </div>
         AJ Elektro AS
       </div>
       <nav class="footer-links">
