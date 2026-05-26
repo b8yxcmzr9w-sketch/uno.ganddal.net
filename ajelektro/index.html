@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AJ Elektro AS – din lokale elektriker i Stavanger, Sandnes og Jæren. Elektroinstallasjon, smarthus, sikringsskap, belysning og mer.">
+  <meta name="keywords" content="elektriker, sandnes, stavanger, jæren, elektroinstallasjon, sikringsskap, belysning, el-kontroll">
+  <title>AJ Elektro AS – Elektriker i Sandnes, Stavanger og Jæren</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AJ Elektro AS">
+  <meta property="og:description" content="Din lokale elektriker i Stavanger, Sandnes og Jæren.">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow: #F5C518;
+      --yellow-dark: #d4a800;
+      --yellow-glow: rgba(245,197,24,0.18);
+      --bg: #0d0f14;
+      --bg-card: #13161e;
+      --bg-card2: #191c26;
+      --border: rgba(255,255,255,0.07);
+      --text: #f0f2f7;
+      --text-muted: #8a909e;
+      --radius: 16px;
+      --nav-h: 72px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 { font-family: 'Syne', sans-serif; line-height: 1.15; }
+    h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); font-weight: 800; }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; }
+    h3 { font-size: 1.2rem; font-weight: 700; }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .accent { color: var(--yellow); }
+
+    /* ===== LAYOUT ===== */
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 96px 0; }
+    .section--alt { background: var(--bg-card); }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 10px;
+      font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem;
+      cursor: pointer; transition: all 0.2s ease; border: none;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--yellow); color: #0d0f14;
+    }
+    .btn-primary:hover { background: var(--yellow-dark); transform: translateY(-2px); box-shadow: 0 8px 24px var(--yellow-glow); }
+    .btn-ghost {
+      background: transparent; color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--yellow); color: var(--yellow); }
+    .btn-lg { padding: 18px 36px; font-size: 1.05rem; }
+    .btn-sm { padding: 10px 20px; font-size: 0.9rem; }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      background: rgba(13,15,20,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+    .nav.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,0.5); }
+    .nav-inner {
+      max-width: 1120px; margin: 0 auto; padding: 0 24px;
+      height: 100%; display: flex; align-items: center; gap: 40px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem;
+      color: var(--text); flex-shrink: 0;
+    }
+    .nav-logo-bolt {
+      width: 34px; height: 34px;
+      background: var(--yellow); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; line-height: 1;
+    }
+    .nav-links {
+      display: flex; list-style: none; gap: 4px; margin-left: auto;
+    }
+    .nav-link {
+      padding: 8px 14px; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 500; color: var(--text-muted);
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    .nav-cta { margin-left: 16px; }
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px; margin-left: auto;
+    }
+    .nav-toggle span {
+      display: block; width: 24px; height: 2px;
+      background: var(--text); border-radius: 2px; transition: all 0.3s;
+    }
+
+    @media (max-width: 700px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-toggle { display: flex; }
+      .nav-links.open {
+        display: flex; flex-direction: column; position: absolute;
+        top: var(--nav-h); left: 0; right: 0;
+        background: var(--bg-card); border-bottom: 1px solid var(--border);
+        padding: 16px; gap: 4px;
+      }
+      .nav-links.open .nav-link { padding: 12px 16px; }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100svh;
+      display: flex; align-items: center;
+      padding-top: var(--nav-h);
+      position: relative; overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; top: -200px; left: -200px;
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,197,24,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-glow-2 {
+      position: absolute; bottom: -100px; right: -100px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,197,24,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1120px; margin: 0 auto; padding: 80px 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--yellow-glow); border: 1px solid rgba(245,197,24,0.3);
+      color: var(--yellow); padding: 6px 14px; border-radius: 100px;
+      font-size: 0.85rem; font-weight: 600; margin-bottom: 24px;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px; background: var(--yellow); border-radius: 50%;
+    }
+    .hero-sub {
+      font-size: 1.15rem; color: var(--text-muted); margin: 20px 0 36px;
+      max-width: 480px;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-visual {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .hero-stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .hero-stat {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .hero-stat-num {
+      font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800;
+      color: var(--yellow);
+    }
+    .hero-stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+    .hero-trust {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .hero-trust-icon { font-size: 2rem; }
+    .hero-trust-text strong { display: block; font-size: 0.95rem; }
+    .hero-trust-text span { font-size: 0.82rem; color: var(--text-muted); }
+
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-visual { display: none; }
+    }
+
+    /* ===== SECTION HEADER ===== */
+    .section-tag {
+      display: inline-block;
+      background: var(--yellow-glow); color: var(--yellow);
+      border: 1px solid rgba(245,197,24,0.25);
+      padding: 4px 12px; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-header h2 { margin-bottom: 12px; }
+    .section-header p { color: var(--text-muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto; }
+
+    /* ===== TJENESTER ===== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 900px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .services-grid { grid-template-columns: 1fr; } }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .service-card:hover {
+      border-color: rgba(245,197,24,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--yellow), transparent);
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: var(--yellow-glow);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 16px;
+    }
+    .service-card h3 { margin-bottom: 8px; font-size: 1.1rem; }
+    .service-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ===== OM OSS ===== */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; gap: 48px; } }
+
+    .about-text p { color: var(--text-muted); margin-bottom: 16px; font-size: 1rem; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-text h2 { margin-bottom: 20px; }
+    .about-checks { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+    .about-checks li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.95rem;
+    }
+    .about-checks li::before {
+      content: '✓'; color: var(--yellow); font-weight: 700; flex-shrink: 0; margin-top: 1px;
+    }
+    .about-visual {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .about-stat {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 20px;
+      text-align: center;
+    }
+    .about-stat:first-child { grid-column: span 2; background: var(--yellow-glow); border-color: rgba(245,197,24,0.3); }
+    .about-stat-num {
+      font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800;
+      color: var(--yellow); display: block;
+    }
+    .about-stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; display: block; }
+
+    /* ===== STEG ===== */
+    .steps {
+      display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 0;
+      align-items: start; margin-top: 48px;
+    }
+    @media (max-width: 700px) {
+      .steps { grid-template-columns: 1fr; gap: 0; }
+      .step-arrow { display: none; }
+    }
+    .step {
+      background: var(--bg-card2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px 24px;
+    }
+    .step-num {
+      font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800;
+      color: var(--yellow); margin-bottom: 12px;
+    }
+    .step h3 { margin-bottom: 8px; }
+    .step p { font-size: 0.9rem; color: var(--text-muted); }
+    .step-arrow {
+      display: flex; align-items: center; justify-content: center;
+      color: var(--yellow); font-size: 1.6rem; padding: 0 16px; padding-top: 40px;
+    }
+
+    /* ===== KONTAKT ===== */
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start;
+    }
+    @media (max-width: 800px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+    .contact-info h2 { margin-bottom: 16px; }
+    .contact-info > p { color: var(--text-muted); margin-bottom: 32px; }
+    .contact-details { display: flex; flex-direction: column; gap: 16px; }
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 20px;
+    }
+    .contact-item-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .contact-item-body strong { display: block; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+    .contact-item-body a, .contact-item-body span { font-size: 0.95rem; font-weight: 500; }
+    .contact-item-body a:hover { color: var(--yellow); }
+
+    .contact-form-wrap {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 36px;
+    }
+    .contact-form-wrap h3 { margin-bottom: 24px; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+
+    label {
+      display: block; font-size: 0.85rem; font-weight: 600;
+      margin-bottom: 6px; color: var(--text-muted);
+    }
+    input, select, textarea {
+      width: 100%; padding: 12px 16px;
+      background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: 10px; color: var(--text);
+      font-family: 'Inter', sans-serif; font-size: 0.95rem;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none; border-color: var(--yellow);
+      box-shadow: 0 0 0 3px rgba(245,197,24,0.1);
+    }
+    input::placeholder, textarea::placeholder { color: var(--text-muted); opacity: 0.6; }
+    select option { background: var(--bg-card); }
+    textarea { resize: vertical; min-height: 120px; }
+    .btn-full { width: 100%; justify-content: center; }
+
+    .form-success {
+      text-align: center; padding: 32px;
+      color: var(--text); font-size: 1.05rem;
+    }
+    .form-success .success-icon { font-size: 3rem; margin-bottom: 12px; }
+
+    /* ===== USP BAR ===== */
+    .usp-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+    .usp-inner {
+      max-width: 1120px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-around; flex-wrap: wrap; gap: 0;
+    }
+    .usp-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 20px 16px; font-size: 0.9rem; font-weight: 500;
+    }
+    .usp-item-icon { color: var(--yellow); font-size: 1.2rem; }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 48px 0 32px;
+    }
+    .footer-inner {
+      max-width: 1120px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 32px;
+    }
+    .footer-brand {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+    }
+    .footer-brand-bolt {
+      width: 30px; height: 30px; background: var(--yellow);
+      border-radius: 6px; display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.9rem; color: var(--text-muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom {
+      max-width: 1120px; margin: 32px auto 0; padding: 24px 24px 0;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+      font-size: 0.82rem; color: var(--text-muted);
+    }
+
+    /* ===== REVEAL ANIMATION ===== */
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ===== BRAND QUOTE ===== */
+    .brand-quote {
+      max-width: 720px; margin: 0 auto;
+      background: var(--yellow-glow);
+      border: 1px solid rgba(245,197,24,0.25);
+      border-left: 4px solid var(--yellow);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      font-weight: 600;
+      line-height: 1.5;
+      text-align: center;
+      color: var(--text);
+      position: relative;
+    }
+    .brand-quote-mark {
+      position: absolute; top: 12px; left: 24px;
+      font-size: 4rem; line-height: 1; color: var(--yellow); opacity: 0.4;
+      font-family: Georgia, serif;
+    }
+    .brand-quote cite {
+      display: block; margin-top: 16px;
+      font-family: 'Inter', sans-serif; font-size: 0.85rem;
+      font-weight: 500; font-style: normal; color: var(--text-muted);
+    }
+
+    /* ===== SCROLL TOP ===== */
+    .scroll-top {
+      position: fixed; bottom: 28px; right: 28px; z-index: 50;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--yellow); color: #0d0f14;
+      border: none; cursor: pointer; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s;
+      box-shadow: 0 4px 16px rgba(245,197,24,0.4);
+    }
+    .scroll-top.show { opacity: 1; pointer-events: all; }
+    .scroll-top:hover { transform: translateY(-3px); }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVIGASJON ===== -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#topp" class="nav-logo">
+        <div class="nav-logo-bolt">⚡</div>
+        <span>AJ Elektro</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#tjenester" class="nav-link">Tjenester</a></li>
+        <li><a href="#om" class="nav-link">Om oss</a></li>
+        <li><a href="#kontakt" class="nav-link">Kontakt</a></li>
+      </ul>
+      <a href="tel:47502351" class="btn btn-primary btn-sm nav-cta">Ring oss</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Åpne meny">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="topp">
+    <div class="hero-glow"></div>
+    <div class="hero-glow-2"></div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          Godkjent elektriker – Stavanger, Sandnes og Jæren
+        </div>
+        <h1>Gode<br><span class="accent">greier.</span></h1>
+        <p class="hero-sub">
+          AJ Elektro AS er din lokale elektriker i Sandnes, Stavanger og Jæren. Vi har ingen ambisjoner om å bli størst – men gjerne best. Rask, ryddig og ærlig.
+        </p>
+        <div class="hero-actions">
+          <a href="#kontakt" class="btn btn-primary btn-lg">Få et tilbud ↓</a>
+          <a href="#tjenester" class="btn btn-ghost btn-lg">Se tjenester</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-stat-row">
+          <div class="hero-stat">
+            <div class="hero-stat-num">2012</div>
+            <div class="hero-stat-label">Etablert i Sandnes</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">Fast</div>
+            <div class="hero-stat-label">Forutsigbare priser</div>
+          </div>
+        </div>
+        <div class="hero-trust">
+          <div class="hero-trust-icon">🛡️</div>
+          <div class="hero-trust-text">
+            <strong>Autorisert elektriker</strong>
+            <span>Godkjent av Direktoratet for samfunnssikkerhet og beredskap</span>
+          </div>
+        </div>
+        <div class="hero-trust">
+          <div class="hero-trust-icon">⚡</div>
+          <div class="hero-trust-text">
+            <strong>Rask tilgjengelighet</strong>
+            <span>Vi svarer raskt og rydder opp i både store og små jobber</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== USP BAR ===== -->
+  <div class="usp-bar">
+    <div class="usp-inner">
+      <div class="usp-item"><span class="usp-item-icon">✓</span> Autorisert og forsikret</div>
+      <div class="usp-item"><span class="usp-item-icon">✓</span> Gratis befaring</div>
+      <div class="usp-item"><span class="usp-item-icon">✓</span> Faste priser – ingen skjulte kostnader</div>
+      <div class="usp-item"><span class="usp-item-icon">✓</span> Privat og næring</div>
+    </div>
+  </div>
+
+  <!-- ===== TJENESTER ===== -->
+  <section class="section" id="tjenester">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Tjenester</span>
+        <h2>Hva kan vi hjelpe deg med?</h2>
+        <p>Vi tilbyr et bredt spekter av elektrotjenester – enten det er hjemme eller på jobben.</p>
+      </div>
+
+      <div class="services-grid">
+
+        <div class="service-card reveal">
+          <div class="service-icon">🔌</div>
+          <h3>Elektroinstallasjon</h3>
+          <p>Nyinstallasjon, ombygging og utvidelse av elektrisk anlegg. For nybygg, påbygg og rehabilitering av eksisterende bolig eller næringsbygg.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-icon">🔒</div>
+          <h3>El-sikkerhet</h3>
+          <p>Vi sørger for at det elektriske anlegget ditt oppfyller gjeldende krav og normer. Sikkerhet for deg og familien din.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-icon">⚙️</div>
+          <h3>Sikringsskap</h3>
+          <p>Bytte, oppgradering og utvidelse av sikringsskap. Fra gammelt sikringsanlegg til moderne jordfeilbrytere og automatsikringer.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-icon">🔍</div>
+          <h3>El-kontroll</h3>
+          <p>Kontroll og dokumentasjon av det elektriske anlegget. Lovpålagt for utleieboliger og næringsbygg, men anbefales alle.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-icon">⚡</div>
+          <h3>Overspenningsvern</h3>
+          <p>Beskyttelse av elektronisk utstyr mot spenningstopper og lynnedslag. Enkelt å installere – stor gevinst ved skade.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-icon">💡</div>
+          <h3>Belysning</h3>
+          <p>Montering av innfelt belysning, utelys, skinnelys og LED-løsninger. Vi hjelper med alt fra planlegging til ferdig installert lys.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OM OSS ===== -->
+  <section class="section section--alt" id="om">
+    <div class="container">
+      <div class="about-grid">
+
+        <div class="about-text reveal">
+          <span class="section-tag">Om oss</span>
+          <h2>Lokal kunnskap. Faglig tyngde.</h2>
+          <p>
+            AJ Elektro AS ble stiftet sommeren 2012 av Arnstein Järvik. Vi har ingen ambisjoner om å bli størst, men kan gjerne finne oss i å være best.
+          </p>
+          <p>
+            Vi har fokus på kvalitet og ønsker å bli kjent for gode greier. Ingen overraskelser på fakturaen – bare godt utført elektroarbeid av noen som stiller opp og gjør det skikkelig.
+          </p>
+          <ul class="about-checks">
+            <li>Autorisert elektriker med fagbrev og godkjenning</li>
+            <li>Rask responstid – vi er tilgjengelige når du trenger oss</li>
+            <li>Erfaring med både private boliger og næringsbygg</li>
+            <li>Ryddig og profesjonell utførelse hver gang</li>
+            <li>Dekker hele Stavanger, Sandnes og Jæren</li>
+          </ul>
+        </div>
+
+        <div class="about-visual reveal">
+          <div class="about-stat">
+            <span class="about-stat-num">2012 →</span>
+            <span class="about-stat-label">Stiftet av Arnstein Järvik · Sandnes</span>
+          </div>
+          <div class="about-stat">
+            <span class="about-stat-num">Privat</span>
+            <span class="about-stat-label">Tjenester for deg hjemme</span>
+          </div>
+          <div class="about-stat">
+            <span class="about-stat-num">Næring</span>
+            <span class="about-stat-label">Tjenester for din bedrift</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="height: 64px;"></div>
+
+      <!-- Sitat / brand statement -->
+      <blockquote class="brand-quote reveal">
+        <span class="brand-quote-mark">"</span>
+        Vi har ingen ambisjoner om å bli størst,<br>men kan gjerne finne oss i å være best.
+        <cite>— Arnstein Järvik, grunnlegger AJ Elektro AS</cite>
+      </blockquote>
+
+      <div style="height: 80px;"></div>
+
+      <div class="section-header reveal">
+        <span class="section-tag">Slik fungerer det</span>
+        <h2>Fra behov til levert jobb</h2>
+        <p>Vi gjør det enkelt – tre steg fra første kontakt til ferdig arbeid.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <h3>Ta kontakt</h3>
+          <p>Ring oss, send e-post eller fyll ut skjemaet. Fortell hva du trenger – vi svarer raskt.</p>
+        </div>
+        <div class="step-arrow reveal">→</div>
+        <div class="step reveal">
+          <div class="step-num">02</div>
+          <h3>Befaring og tilbud</h3>
+          <p>Vi kommer på befaring (gratis) og gir deg et fast, forutsigbart tilbud uten skjulte kostnader.</p>
+        </div>
+        <div class="step-arrow reveal">→</div>
+        <div class="step reveal">
+          <div class="step-num">03</div>
+          <h3>Jobben utføres</h3>
+          <p>Vi møter opp, gjør jobben skikkelig og rydder etter oss. Du godkjenner og er trygg på resultatet.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== KONTAKT ===== -->
+  <section class="section" id="kontakt">
+    <div class="container">
+      <div class="contact-grid">
+
+        <div class="contact-info reveal">
+          <span class="section-tag">Kontakt</span>
+          <h2>La oss ta en prat!</h2>
+          <p>Har du et elektrooppdrag, lurer på noe eller ønsker et tilbud? Vi er klare til å hjelpe.</p>
+
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-item-icon">📞</div>
+              <div class="contact-item-body">
+                <strong>Telefon</strong>
+                <a href="tel:47502351">475 02 351</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">✉️</div>
+              <div class="contact-item-body">
+                <strong>E-post</strong>
+                <a href="mailto:arnstein@ajelektro.no">arnstein@ajelektro.no</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">📍</div>
+              <div class="contact-item-body">
+                <strong>Adresse</strong>
+                <span>Killinglandveien 94A, 4312 Sandnes</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">🗺️</div>
+              <div class="contact-item-body">
+                <strong>Dekningsområde</strong>
+                <span>Stavanger, Sandnes og Jæren</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-wrap reveal">
+          <h3>Send oss en melding</h3>
+          <form id="contactForm" action="https://formspree.io/f/xzdwvpga" method="POST">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Navn</label>
+                <input type="text" id="name" name="name" placeholder="Ditt navn" required autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone" name="phone" placeholder="Ditt nummer" autocomplete="tel">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">E-post</label>
+              <input type="email" id="email" name="email" placeholder="din@epost.no" required autocomplete="email">
+            </div>
+
+            <div class="form-group">
+              <label for="service">Hva gjelder det?</label>
+              <select id="service" name="service" required>
+                <option value="" disabled selected>Velg tjeneste...</option>
+                <option value="elektroinstallasjon">Elektroinstallasjon</option>
+                <option value="el-sikkerhet">El-sikkerhet</option>
+                <option value="sikringsskap">Sikringsskap</option>
+                <option value="el-kontroll">El-kontroll</option>
+                <option value="overspenningsvern">Overspenningsvern</option>
+                <option value="belysning">Belysning</option>
+                <option value="annet">Annet</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Beskrivelse</label>
+              <textarea id="message" name="message" placeholder="Beskriv oppdraget kort – adresse, hva som skal gjøres, eventuelle ønsker..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+              Send forespørsel ⚡
+            </button>
+
+            <div class="form-success" id="formSuccess" hidden>
+              <div class="success-icon">✅</div>
+              <p>Takk! Vi tar kontakt så snart som mulig.</p>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-bolt">⚡</div>
+        AJ Elektro AS
+      </div>
+      <nav class="footer-links">
+        <a href="#tjenester">Tjenester</a>
+        <a href="#om">Om oss</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="tel:47502351">475 02 351</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 AJ Elektro AS · Killinglandveien 94A, 4312 Sandnes</span>
+      <span>Org.nr: – · Autorisert elektriker</span>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scrollTop" aria-label="Til toppen">↑</button>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    const scrollTopBtn = document.getElementById('scrollTop');
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+      scrollTopBtn.classList.toggle('show', window.scrollY > 400);
+    }, { passive: true });
+
+    scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Mobile menu
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('.nav-link').forEach(l =>
+      l.addEventListener('click', () => navLinks.classList.remove('open'))
+    );
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Contact form
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const formSuccess = document.getElementById('formSuccess');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.textContent = 'Sender...';
+      submitBtn.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        });
+        if (res.ok) {
+          form.querySelectorAll('input, select, textarea, button').forEach(el => el.style.display = 'none');
+          form.querySelector('h3') && (form.querySelector('h3').style.display = 'none');
+          formSuccess.hidden = false;
+        } else {
+          submitBtn.textContent = 'Noe gikk galt – prøv igjen';
+          submitBtn.disabled = false;
+        }
+      } catch {
+        submitBtn.textContent = 'Noe gikk galt – prøv igjen';
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
