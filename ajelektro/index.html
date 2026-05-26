@@ -263,13 +263,20 @@
     }
 
     @media (max-width: 860px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 32px; }
-      .hero-visual { order: -1; }
+      .hero-inner {
+        grid-template-columns: 1fr 130px;
+        gap: 20px;
+        align-items: center;
+      }
       .hero-photo-wrap, .hero-stat-row { display: none; }
       .hero-logo-large {
-        width: 140px; height: 140px;
-        margin: 0 auto;
+        width: 120px; height: 120px;
+        margin: 0;
       }
+    }
+    @media (max-width: 420px) {
+      .hero-inner { grid-template-columns: 1fr 100px; }
+      .hero-logo-large { width: 90px; height: 90px; }
     }
 
     /* ===== SECTION HEADER ===== */
