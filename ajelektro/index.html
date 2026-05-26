@@ -181,10 +181,20 @@
     }
     .hero-inner {
       max-width: 1120px; margin: 0 auto; padding: 80px 24px;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "heading visual"
+        "body    visual";
+      gap: 0 64px;
+      align-items: start;
     }
+    .hero-heading { grid-area: heading; padding-bottom: 24px; }
+    .hero-body    { grid-area: body; }
+    .hero-visual  { grid-area: visual; }
+
     .hero-sub {
-      font-size: 1.15rem; color: var(--text-muted); margin: 20px 0 36px;
+      font-size: 1.15rem; color: var(--text-muted); margin: 0 0 32px;
       max-width: 480px;
     }
     .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
@@ -264,20 +274,18 @@
 
     @media (max-width: 860px) {
       .hero-inner {
-        grid-template-columns: 1fr 120px;
-        gap: 16px;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+          "heading visual"
+          "body    body";
+        gap: 20px 16px;
         align-items: start;
       }
       .hero-photo-wrap, .hero-stat-row { display: none; }
-      .hero-visual { padding-top: 6px; }
       .hero-logo-large {
-        width: 115px; height: 115px;
-        margin: 0;
+        width: 100%; aspect-ratio: 1;
+        height: auto; margin: 0;
       }
-    }
-    @media (max-width: 420px) {
-      .hero-inner { grid-template-columns: 1fr 96px; }
-      .hero-logo-large { width: 90px; height: 90px; }
     }
 
     /* ===== SECTION HEADER ===== */
@@ -583,8 +591,10 @@
     <div class="hero-glow"></div>
     <div class="hero-glow-2"></div>
     <div class="hero-inner">
-      <div class="hero-text">
+      <div class="hero-heading">
         <h1>Gode<br><span class="accent">greier.</span></h1>
+      </div>
+      <div class="hero-body">
         <p class="hero-sub">
           AJ Elektro AS er din lokale elektriker i Sandnes, Stavanger og Jæren. Vi har ingen ambisjoner om å bli størst – men gjerne best. Rask, ryddig og ærlig.
         </p>
