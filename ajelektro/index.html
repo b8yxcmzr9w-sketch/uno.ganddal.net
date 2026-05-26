@@ -101,8 +101,14 @@
     }
     .nav-logo-img {
       width: 40px; height: 40px; flex-shrink: 0;
+      border-radius: 8px; overflow: hidden;
     }
-    .nav-logo-img svg { width: 100%; height: 100%; }
+    .nav-logo-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      transform: scale(1.18);
+      display: block;
+    }
     .nav-links {
       display: flex; list-style: none; gap: 4px; margin-left: auto;
     }
@@ -431,8 +437,14 @@
     }
     .footer-brand-logo {
       width: 36px; height: 36px; flex-shrink: 0;
+      border-radius: 7px; overflow: hidden;
     }
-    .footer-brand-logo svg { width: 100%; height: 100%; }
+    .footer-brand-logo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      transform: scale(1.18);
+      display: block;
+    }
     .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
     .footer-links a { font-size: 0.9rem; color: var(--text-muted); transition: color 0.2s; }
     .footer-links a:hover { color: var(--text); }
@@ -498,12 +510,7 @@
     <div class="nav-inner">
       <a href="#topp" class="nav-logo">
         <div class="nav-logo-img">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AJ Elektro logo">
-            <rect width="100" height="100" rx="12" fill="#3a3a3a"/>
-            <text x="6" y="74" font-family="Arial Black, sans-serif" font-weight="900" font-size="62" fill="#E8A020">AJ</text>
-            <text x="78" y="72" font-family="Arial, sans-serif" font-weight="700" font-size="11" fill="#E8A020"
-              transform="rotate(-90 78 72)" text-anchor="middle" letter-spacing="1">ELEKTRO</text>
-          </svg>
+          <img src="img/IMG_5417.jpeg" alt="AJ Elektro logo">
         </div>
         <span>AJ Elektro</span>
       </a>
@@ -549,12 +556,7 @@
           >
           <div class="hero-photo-placeholder" style="display:none;">
             <div class="placeholder-logo">
-              <svg viewBox="0 0 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg">
-                <rect width="100" height="100" rx="12" fill="#3a3a3a"/>
-                <text x="6" y="74" font-family="Arial Black, sans-serif" font-weight="900" font-size="62" fill="#E8A020">AJ</text>
-                <text x="78" y="72" font-family="Arial, sans-serif" font-weight="700" font-size="11" fill="#E8A020"
-                  transform="rotate(-90 78 72)" text-anchor="middle" letter-spacing="1">ELEKTRO</text>
-              </svg>
+              <img src="img/IMG_5417.jpeg" alt="AJ Elektro" style="width:80px;height:80px;border-radius:12px;object-fit:cover;transform:scale(1.18);">
             </div>
             <p>Legg til <code>img/arnstein-hero.jpg</code><br>for å vise heltebildet</p>
           </div>
@@ -811,12 +813,7 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <div class="footer-brand-logo">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect width="100" height="100" rx="12" fill="#3a3a3a"/>
-            <text x="6" y="74" font-family="Arial Black, sans-serif" font-weight="900" font-size="62" fill="#E8A020">AJ</text>
-            <text x="78" y="72" font-family="Arial, sans-serif" font-weight="700" font-size="11" fill="#E8A020"
-              transform="rotate(-90 78 72)" text-anchor="middle" letter-spacing="1">ELEKTRO</text>
-          </svg>
+          <img src="img/IMG_5417.jpeg" alt="AJ Elektro logo">
         </div>
         AJ Elektro AS
       </div>
