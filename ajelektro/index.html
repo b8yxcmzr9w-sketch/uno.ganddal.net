@@ -195,12 +195,35 @@
     .hero-trust-text strong { display: block; font-size: 0.95rem; }
     .hero-trust-text span { font-size: 0.82rem; color: var(--text-muted); }
 
-    .hero-logo-large {
-      width: 100%; max-width: 200px;
-      margin: 0 auto 8px;
-      filter: drop-shadow(0 16px 48px rgba(232,160,32,0.25));
+    .hero-photo-wrap {
+      position: relative; width: 100%;
     }
-    .hero-logo-large svg { width: 100%; height: auto; border-radius: 20px; }
+    .hero-photo {
+      width: 100%; aspect-ratio: 4/5;
+      object-fit: cover; object-position: center top;
+      border-radius: 20px;
+      display: block;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+    }
+    .hero-photo-placeholder {
+      width: 100%; aspect-ratio: 4/5;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #1e2028 0%, #2a2d38 100%);
+      border: 2px dashed rgba(232,160,32,0.3);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px; color: var(--text-muted); text-align: center; padding: 24px;
+    }
+    .hero-photo-placeholder .placeholder-logo { font-size: 3rem; }
+    .hero-photo-placeholder p { font-size: 0.85rem; line-height: 1.5; }
+    .hero-photo-badge {
+      position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%);
+      background: var(--yellow); color: #0d0f14;
+      padding: 10px 20px; border-radius: 100px;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.95rem;
+      white-space: nowrap;
+      box-shadow: 0 8px 24px rgba(232,160,32,0.4);
+    }
 
     @media (max-width: 860px) {
       .hero-inner { grid-template-columns: 1fr; gap: 48px; }
@@ -275,20 +298,25 @@
     .about-checks li::before {
       content: '✓'; color: var(--yellow); font-weight: 700; flex-shrink: 0; margin-top: 1px;
     }
-    .about-visual {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    .about-photo-wrap {
+      position: relative; align-self: start;
     }
-    .about-stat {
-      background: var(--bg); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 28px 20px;
+    .about-photo {
+      width: 100%; border-radius: 20px;
+      object-fit: cover; object-position: center top;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+      display: block;
+    }
+    .about-photo-label {
+      position: absolute; bottom: 16px; left: 16px; right: 16px;
+      background: rgba(13,15,20,0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(232,160,32,0.3);
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 0.85rem; font-weight: 600; color: var(--yellow);
       text-align: center;
     }
-    .about-stat:first-child { grid-column: span 2; background: var(--yellow-glow); border-color: rgba(245,197,24,0.3); }
-    .about-stat-num {
-      font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800;
-      color: var(--yellow); display: block;
-    }
-    .about-stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; display: block; }
 
     /* ===== STEG ===== */
     .steps {
@@ -512,36 +540,34 @@
       </div>
 
       <div class="hero-visual">
-        <div class="hero-logo-large">
-          <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AJ Elektro">
-            <rect width="300" height="300" rx="28" fill="#3a3a3a"/>
-            <text x="14" y="224" font-family="Arial Black, sans-serif" font-weight="900" font-size="192" fill="#E8A020">AJ</text>
-            <text x="236" y="218" font-family="Arial, sans-serif" font-weight="700" font-size="30" fill="#E8A020"
-              transform="rotate(-90 236 218)" text-anchor="middle" letter-spacing="3">ELEKTRO</text>
-          </svg>
+        <div class="hero-photo-wrap">
+          <img
+            src="img/arnstein-hero.jpg"
+            alt="Arnstein Järvik – grunnlegger av AJ Elektro, foran bilen med 'Gode greier'"
+            class="hero-photo"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          >
+          <div class="hero-photo-placeholder" style="display:none;">
+            <div class="placeholder-logo">
+              <svg viewBox="0 0 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" rx="12" fill="#3a3a3a"/>
+                <text x="6" y="74" font-family="Arial Black, sans-serif" font-weight="900" font-size="62" fill="#E8A020">AJ</text>
+                <text x="78" y="72" font-family="Arial, sans-serif" font-weight="700" font-size="11" fill="#E8A020"
+                  transform="rotate(-90 78 72)" text-anchor="middle" letter-spacing="1">ELEKTRO</text>
+              </svg>
+            </div>
+            <p>Legg til <code>img/arnstein-hero.jpg</code><br>for å vise heltebildet</p>
+          </div>
+          <div class="hero-photo-badge">Gode greier siden 2012</div>
         </div>
-        <div class="hero-stat-row">
+        <div class="hero-stat-row" style="margin-top: 32px;">
           <div class="hero-stat">
             <div class="hero-stat-num">2012</div>
             <div class="hero-stat-label">Etablert i Sandnes</div>
           </div>
           <div class="hero-stat">
-            <div class="hero-stat-num">Fast</div>
-            <div class="hero-stat-label">Forutsigbare priser</div>
-          </div>
-        </div>
-        <div class="hero-trust">
-          <div class="hero-trust-icon">🛡️</div>
-          <div class="hero-trust-text">
-            <strong>Autorisert elektriker</strong>
-            <span>Godkjent av Direktoratet for samfunnssikkerhet og beredskap</span>
-          </div>
-        </div>
-        <div class="hero-trust">
-          <div class="hero-trust-icon">⚡</div>
-          <div class="hero-trust-text">
-            <strong>Rask tilgjengelighet</strong>
-            <span>Vi svarer raskt og rydder opp i både store og små jobber</span>
+            <div class="hero-stat-num">Jæren</div>
+            <div class="hero-stat-label">Hele regionen</div>
           </div>
         </div>
       </div>
@@ -632,19 +658,14 @@
           </ul>
         </div>
 
-        <div class="about-visual reveal">
-          <div class="about-stat">
-            <span class="about-stat-num">2012 →</span>
-            <span class="about-stat-label">Stiftet av Arnstein Järvik · Sandnes</span>
-          </div>
-          <div class="about-stat">
-            <span class="about-stat-num">Privat</span>
-            <span class="about-stat-label">Tjenester for deg hjemme</span>
-          </div>
-          <div class="about-stat">
-            <span class="about-stat-num">Næring</span>
-            <span class="about-stat-label">Tjenester for din bedrift</span>
-          </div>
+        <div class="about-photo-wrap reveal">
+          <img
+            src="img/arnstein-hero.jpg"
+            alt="Arnstein Järvik foran AJ Elektro-bilen"
+            class="about-photo"
+            onerror="this.closest('.about-photo-wrap').style.display='none';"
+          >
+          <div class="about-photo-label">Arnstein Järvik · Grunnlegger</div>
         </div>
 
       </div>
