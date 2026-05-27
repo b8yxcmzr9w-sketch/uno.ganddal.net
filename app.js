@@ -163,6 +163,19 @@ document.querySelectorAll('[data-preselect]').forEach(btn => {
   });
 });
 
+/* ── Skjul «Ta kontakt»-knappen når kontaktseksjonen er synlig ── */
+const navCta         = document.querySelector('.nav-cta');
+const kontaktSeksjon = document.getElementById('kontakt');
+
+if (navCta && kontaktSeksjon) {
+  const ctaObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      navCta.classList.toggle('hidden', entry.isIntersecting);
+    });
+  }, { threshold: 0.1 });
+  ctaObs.observe(kontaktSeksjon);
+}
+
 /* ── Jevn scroll for ankre (fallback for eldre nettlesere) ── */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', e => {
