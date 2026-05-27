@@ -141,7 +141,10 @@ h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
   transition: color .2s, background .2s;
 }
 .nav-link:hover { color: var(--text); background: rgba(255,255,255,.06); }
-.nav-cta  { padding: 9px 18px; margin-left: 8px; transition: opacity .4s, visibility .4s; }
+.nav-cta  { padding: 9px 18px; margin-left: 8px;
+            transition: transform .25s var(--ease), box-shadow .25s var(--ease),
+                        background .2s var(--ease), border-color .2s var(--ease),
+                        opacity .4s, visibility .4s; }
 .nav-cta.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
 /* Mobile toggle */
