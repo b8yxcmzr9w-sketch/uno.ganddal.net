@@ -168,9 +168,16 @@ const navCta         = document.querySelector('.nav-cta');
 const kontaktSeksjon = document.getElementById('kontakt');
 
 if (navCta && kontaktSeksjon) {
+  navCta.style.transition = 'opacity 1s ease';
   const ctaObs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      navCta.classList.toggle('hidden', entry.isIntersecting);
+      if (entry.isIntersecting) {
+        navCta.style.opacity = '0';
+        navCta.style.pointerEvents = 'none';
+      } else {
+        navCta.style.opacity = '1';
+        navCta.style.pointerEvents = '';
+      }
     });
   }, { threshold: 0 });
   ctaObs.observe(kontaktSeksjon);
