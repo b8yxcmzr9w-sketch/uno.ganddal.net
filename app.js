@@ -163,24 +163,24 @@ document.querySelectorAll('[data-preselect]').forEach(btn => {
   });
 });
 
-/* ── Skjul «Ta kontakt»-knappen når kontaktseksjonen er synlig ── */
+/* ── Fei «Ta kontakt»-knappen basert på scrollposisjon ── */
 const navCta         = document.querySelector('.nav-cta');
 const kontaktSeksjon = document.getElementById('kontakt');
 
 if (navCta && kontaktSeksjon) {
-  navCta.style.transition = 'opacity 2s ease';
-  const ctaObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navCta.style.opacity = '0';
-        navCta.style.pointerEvents = 'none';
-      } else {
-        navCta.style.opacity = '1';
-        navCta.style.pointerEvents = '';
-      }
-    });
-  }, { threshold: 0 });
-  ctaObs.observe(kontaktSeksjon);
+  function updateCtaOpacity() {
+    const rect       = kontaktSeksjon.getBoundingClientRect();
+    const viewH      = window.innerHeight;
+    // Hvor mye av seksjonen er synlig (0 = ikke synlig, 1 = 100% synlig)
+    const visible    = Math.max(0, Math.min(viewH, viewH - rect.top)) / viewH;
+    // Fade fra opacity 1 (0% synlig) til 0 (50% synlig)
+    const opacity    = Math.max(0, 1 - visible / 0.5);
+    navCta.style.opacity      = opacity;
+    navCta.style.pointerEvents = opacity < 0.05 ? 'none' : '';
+  }
+
+  window.addEventListener('scroll', updateCtaOpacity, { passive: true });
+  updateCtaOpacity(); // kjør ved oppstart
 }
 
 /* ── Jevn scroll for ankre (fallback for eldre nettlesere) ── */
