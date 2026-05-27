@@ -168,7 +168,7 @@ const navCta         = document.querySelector('.nav-cta');
 const kontaktSeksjon = document.getElementById('kontakt');
 
 if (navCta && kontaktSeksjon) {
-  navCta.style.transition = 'opacity 1s ease';
+  navCta.style.transition = 'opacity 2s ease';
   const ctaObs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
