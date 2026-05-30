@@ -624,17 +624,20 @@ h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
    FOOTER
    ============================================================ */
 .footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 1.4rem 0 1.2rem;
+  padding: 1.2rem 0;
   border-top: 1px solid var(--border);
 }
-.footer span {
-  font-size: 0.68rem;
-  color: #555;
+.footer-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
 }
+.footer-logo-link { display: inline-flex; align-items: center; line-height: 0; }
+.footer-logo-link img { opacity: .4; }
+.footer-copy { font-size: 0.68rem; color: #666; }
 
 /* ============================================================
    EASTER EGG
