@@ -624,33 +624,17 @@ h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
    FOOTER
    ============================================================ */
 .footer {
-  padding: 44px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.4rem 0 1.2rem;
   border-top: 1px solid var(--border);
-  background: var(--bg-alt);
 }
-.footer-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
+.footer span {
+  font-size: 0.68rem;
+  color: #555;
 }
-.footer-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: .98rem;
-}
-.footer-logo-wrap {
-  width: 30px; height: 30px;
-}
-.footer-logo-wrap img { width: 30px; height: 30px; object-fit: contain; filter: brightness(0) invert(1); }
-.footer-copy { color: var(--text-muted); font-size: .83rem; }
-.footer-nav  { display: flex; gap: 22px; }
-.footer-nav a { color: var(--text-muted); font-size: .83rem; transition: color .2s; }
-.footer-nav a:hover { color: var(--accent); }
 
 /* ============================================================
    EASTER EGG
